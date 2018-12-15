@@ -103,6 +103,7 @@
                       <td><?php if(!empty($row['occupation'])){ echo $row['occupation']; }?></td>                      
                       <td><?php if(!empty($row['date'])){ echo $row['date']; }?></td>
                       <td><?php if(!empty($row['status'])){ echo $row['status']; }?></td>
+                      <td></td>
 
 
   			     </tr>
