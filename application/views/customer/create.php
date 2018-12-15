@@ -78,28 +78,31 @@
         <table id="my-table" class="table table-hover">
         <thead>
          <tr>
-           <th>mem_num</th>
-           <th>name</th>
-           <th>nic</th>
-           <th>address</th>
-           <th>occupation</th>
-           <th>active</th>
-           <th>create_date</th>
+           <th>Member Number</th>
+           <th>Name</th>
+           <th>NIC</th>
+           <th>Address</th>
+           <th>Occupation</th>
+           <th>Active</th>
+           <th>Create date</th>
            <th>Edit/Delete</th>
 
          </tr>
        </thead>
+       
        <tbody>
-         <?php if(!empty($get_customer)){
+         <?php 
+        //  var_dump($get_customer);
+         if(!empty($get_customer)){
           foreach ($get_customer as $row) { ?>
             <tr id="<?php if(!empty($row['idcustomer'])){ echo $row['idcustomer']; }?>">
-  			            	<td><?php if(!empty($row['mem_num'])){ echo $row['mem_num']; }?></td>
+  			            	<td><?php if(!empty($row['member_no'])){ echo $row['member_no']; }?></td>
   			            	<td><?php if(!empty($row['name'])){ echo $row['name']; }?></td>
   			              <td><?php if(!empty($row['nic'])){ echo $row['nic']; }?></td>
   			              <td><?php if(!empty($row['address'])){ echo $row['address']; }?></td>
-                      <td><?php if(!empty($row['occupation'])){ echo $row['occupation']; }?></td>
-                      <td><?php if(!empty($row['active'])){ echo $row['active']; }?></td>
-                      <td><?php if(!empty($row['create_date'])){ echo $row['create_date']; }?></td>
+                      <td><?php if(!empty($row['occupation'])){ echo $row['occupation']; }?></td>                      
+                      <td><?php if(!empty($row['date'])){ echo $row['date']; }?></td>
+                      <td><?php if(!empty($row['status'])){ echo $row['status']; }?></td>
 
 
   			     </tr>

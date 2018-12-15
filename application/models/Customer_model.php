@@ -15,12 +15,13 @@ class customer_model extends CI_Model{
     return false;
     }
   }
-	function get_customer(){
+	public function get_customer(){
       $this->db->select('*');
       $result = $this->db->get('customer');
-
+      
       if($result->num_rows() > 0){
         return $result->result_array();
+       var_dump ($result->result_array());
       }else{
         return false;
       }

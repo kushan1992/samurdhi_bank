@@ -40,7 +40,8 @@ class Customer extends CI_Controller {
 	}
 	public function create(){
 
-    $data['get_customer'] = $this->customer_model->get_customer();
+	$data['get_customer'] = $this->customer_model->get_customer();
+	
 		$this->load->view('templates/header');
 		$this->load->view('customer/create',$data);
 		$this->load->view('templates/footer');
@@ -54,33 +55,36 @@ class Customer extends CI_Controller {
  		$this->form_validation->set_rules('name','Name','trim|required');
  		$this->form_validation->set_rules('nic','NIC','trim|required|min_length[10]|max_length[10]');
  		$this->form_validation->set_rules('address','Address','trim|required');
-    $this->form_validation->set_rules('occupation','Occupation','trim|required');
+        $this->form_validation->set_rules('occupation','Occupation','trim|required');
 
 		if ($this->form_validation->run()=== FALSE){
+			$data['get_customer'] = $this->customer_model->get_customer();
 			$this->load->view('templates/header');
-			$this->load->view('customer/create');
+			$this->load->view('customer/create',$data);
 			$this->load->view('templates/footer');
 		}
 		else{
 			$data = array(
-       	  'mem_num' => $this->input->post('memNumber'),
+       	  'member_no' => $this->input->post('memNumber'),
        	  'name' => $this->input->post('name'),
        	  'nic' => $this->input->post('nic'),
        	  'address' => $this->input->post('address'),
-					'occupation' => $this->input->post('occupation'),
-					'active' => 1 ,
-					'create_date' => date("Y-m-d H:i:s")
+					'occupation' => $this->input->post('occupation'),					
+					'date' => date("Y-m-d H:i:s"),
+					'status' => 1 ,
 
 
        	);
      $cus_create = $this->customer_model->cus_create($data);
      if($cus_create == true){
 			$data['result_msg'] = 'Submitted Data';
+			$data['get_customer'] = $this->customer_model->get_customer();
 			$this->load->view('templates/header');
  			$this->load->view('customer/create',$data);
  			$this->load->view('templates/footer');
 		}else{
 			$data['result_msg'] = 'Something Wrong';
+			$data['get_customer'] = $this->customer_model->get_customer();
 			$this->load->view('templates/header');
  			$this->load->view('customer/create',$data);
  			$this->load->view('templates/footer');
