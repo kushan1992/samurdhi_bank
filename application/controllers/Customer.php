@@ -30,14 +30,11 @@ class Customer extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('home');
-	}
-	public function dashboard(){
 		$this->load->view('templates/header');
 		$this->load->view('customer/dashboard');
 		$this->load->view('templates/footer');
-
 	}
+	
 	public function create(){
 
 	$data['get_customer'] = $this->customer_model->get_customer();
