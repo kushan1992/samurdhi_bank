@@ -103,7 +103,15 @@
                       <td><?php if(!empty($row['occupation'])){ echo $row['occupation']; }?></td>                      
                       <td><?php if(!empty($row['date'])){ echo $row['date']; }?></td>
                       <td><?php if(!empty($row['status'])){ echo $row['status']; }?></td>
-                      <td></td>
+                      <td>
+                      <button type="button" class="btn btn-icons btn-rounded btn-secondary">
+                          <i class="mdi mdi-pencil"></i>
+                      </button>
+                      <button type="button" class="btn btn-icons btn-rounded btn-danger">
+                          <i class="mdi mdi-delete"></i>
+                      </button>
+
+                      </td>
 
 
   			     </tr>
