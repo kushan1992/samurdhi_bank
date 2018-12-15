@@ -225,7 +225,7 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="<?php echo base_url(); ?>admin/dashboard">
               <i class="menu-icon mdi mdi-television"></i>
               <span class="menu-title">Dashboard</span>
             </a>
@@ -280,6 +280,23 @@
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="<?php echo base_url(); ?>public/pages/ui-features/typography.html">Customer Loan</a>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#admin" aria-expanded="false" aria-controls="ui-basic">
+              <i class="menu-icon mdi mdi-content-copy"></i>
+              <span class="menu-title">Admin</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="admin">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item">
+                  <a class="nav-link" href="<?php echo base_url(); ?>admin/create">Create</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="<?php echo base_url(); ?>public/pages/ui-features/typography.html">Privilege</a>
                 </li>
               </ul>
             </div>

@@ -29,6 +29,12 @@ class Admin extends CI_Controller {
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function index() {
+		$this->load->view('templates/header');
+		$this->load->view('dashboard');
+		$this->load->view('templates/footer');
+	}
+
+	public function signin() {
 		$this->load->view('admin/signin');
 	}
 
@@ -44,11 +50,16 @@ class Admin extends CI_Controller {
 				$data['error'] = 'Invalid Username or Password';  
 				$this->load->view('admin/signin', $data);  
 			} else{
-				redirect('customer/dashboard');
+				redirect('admin');
 			} 
 
 		}
-    } 
+	} 
+	public function create(){
+		$this->load->view('templates/header');
+		$this->load->view('admin/create');
+		$this->load->view('templates/footer');
+	}
 
 
 }
