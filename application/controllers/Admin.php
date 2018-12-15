@@ -28,18 +28,27 @@ class Admin extends CI_Controller {
 	 * map to /index.php/welcome/<method_name>
 	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
-	public function index()
-	{
+	public function index() {
 		$this->load->view('admin/signin');
 	}
 
+	public function process()  {  
+        $user = $this->input->post('username');  
+		$pass = $this->input->post('password');  
 
+		if((isset($user) && trim($user) !== '') && (isset($pass) && trim($pass) !== '')){
+			$this->load->model('Admin_model');  
+			$result = $this->Admin_model->checkLogin($user, $pass);
 
+			if(! $result){
+				$data['error'] = 'Invalid Username or Password';  
+				$this->load->view('admin/signin', $data);  
+			} else{
+				redirect('customer/dashboard');
+			} 
 
-	
-
-
-
+		}
+    } 
 
 
 }

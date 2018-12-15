@@ -26,12 +26,12 @@
         <div class="row w-100">
           <div class="col-lg-4 mx-auto">
             <div class="auto-form-wrapper">
-            <?php echo form_open('customer/validate_credentials');?>
+            <?php echo form_open('admin/process');?>
                 <center><b><label class="label">Admin Login</label></b></center>
                 <div class="form-group">
                   <label class="label">Username</label>
                   <div class="input-group">
-                    <input type="text" name="email" class="form-control" placeholder="Email">   
+                    <input type="text" name="username" class="form-control" placeholder="Username">   
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="mdi mdi-check-circle-outline"></i>
@@ -43,7 +43,7 @@
                 <div class="form-group">
                   <label class="label">Password</label>
                   <div class="input-group">
-                    <input type="password" name="password" class="form-control" placeholder="*********">        
+                    <input type="password" name="password" class="form-control" placeholder="Password">        
                     <div class="input-group-append">
                       <span class="input-group-text">
                         <i class="mdi mdi-check-circle-outline"></i>
@@ -52,7 +52,7 @@
                   </div>
                   <?php echo form_error('password', '<p class="text-warning">', '</p>'); ?>
                 </div>
-                <?php if(!empty($login_error)){echo '<p class="text-warning">'.$login_error."</p>";} ?>
+                <?php if(isset($error)){echo '<p class="text-warning">'.$error."</p>";} ?>
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary submit-btn btn-block">Login</button>
                 </div>
