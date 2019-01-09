@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'sql9.freemysqlhosting.net',
-	'username' => 'sql9270092',
-	'password' => 'jyFHYeIx4n',
-	'database' => 'sql9270092',
+	'hostname' => 'localhost',
+	'username' => 'root',
+	'password' => 'root',
+	'database' => 'samurdhi_bank',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
