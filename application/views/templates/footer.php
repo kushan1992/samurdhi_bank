@@ -2,7 +2,8 @@
 <!-- page-body-wrapper ends -->
 </div>
 <!-- container-scroller -->
-
+<!-- bootstap -->
+<script src="<?php echo base_url(); ?>public/vendors/js/bootstap/bootstrap.min.js"></script>
 <!-- plugins:js -->
 <script src="<?php echo base_url(); ?>public/vendors/js/vendor.bundle.base.js"></script>
 <script src="<?php echo base_url(); ?>public/vendors/js/vendor.bundle.addons.js"></script>

@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/css/vendor.bundle.base.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/css/vendor.bundle.addons.css">
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/css/bootstrap/bootstrap.min.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->

@@ -110,8 +110,8 @@ class Admin extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 
-		$this->form_validation->set_rules('role','Privilage','trim|required');
-		$this->form_validation->set_rules('status','Status','trim|required');
+		$this->form_validation->set_rules('role','role','trim|required');
+		//$this->form_validation->set_rules('status','Status','trim|required');
 
 		if ($this->form_validation->run()=== FALSE){
 			$this->load->view('templates/header');

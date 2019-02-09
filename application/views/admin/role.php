@@ -15,15 +15,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Status</label>
-                  <div class="col-sm-9">
-                    <input type="text" name="status" class="form-control" />
-                    <?php echo form_error('status', '<p class="text-warning" >', '</p>'); ?>
-                  </div>
-                </div>
-              </div>
+              <input type="hidden" name="status" value="Active" class="form-control" />
             </div>
             <div class="col-md-6">
               <div class="form-group row">
@@ -64,7 +56,7 @@
       			            	<td><?php if(!empty($row['role'])){ echo $row['role']; }?></td>
       			            	<td><?php if(!empty($row['status'])){ echo $row['status']; }?></td>
                           <td>
-                          <button type="button" class="btn btn-icons btn-rounded btn-secondary">
+                          <button type="button" class="btn btn-icons btn-rounded btn-secondary" data-toggle="modal" data-target="#myModal">
                               <i class="mdi mdi-pencil"></i>
                           </button>
                           <button type="button" class="btn btn-icons btn-rounded btn-danger">
@@ -86,14 +78,37 @@
            </tbody>
 
             </table>
-
-          </div>
         </div>
       </div>
      </div>
 
     </div>
   </div>
+
+  <!-- The Modal -->
+ <div class="modal" id="myModal">
+   <div class="modal-dialog">
+     <div class="modal-content">
+
+       <!-- Modal Header -->
+       <div class="modal-header">
+         <h4 class="modal-title">Update Role</h4>
+         <button type="button" class="close" data-dismiss="modal">&times;</button>
+       </div>
+
+       <!-- Modal body -->
+       <div class="modal-body">
+
+       </div>
+
+       <!-- Modal footer -->
+       <div class="modal-footer">
+         <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+       </div>
+
+     </div>
+   </div>
+ </div>
 
   <script>
   $('#my-table').dynatable({
