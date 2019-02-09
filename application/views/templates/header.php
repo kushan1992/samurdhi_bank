@@ -2,24 +2,26 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
-    <!-- plugins:css -->
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/css/vendor.bundle.base.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/css/vendor.bundle.addons.css">
-    <!-- endinject -->
-    <!-- plugin css for this page -->
-    <!-- End plugin css for this page -->
-    <!-- inject:css -->
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/style.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/dynatable/jquery.dynatable.css">
-    <!-- endinject -->
-    <link rel="shortcut icon" href="<?php echo base_url(); ?>public/images/favicon.png"/>
-    <script src="<?php echo base_url(); ?>public/js/jquery-1.7.2.min.js"></script>
-    <script src="<?php echo base_url(); ?>public/js/dynatable/jquery.dynatable.js"></script>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/css/vendor.bundle.addons.css">
+  <!-- bootstrap -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/css/bootstrap/bootstrap.min.css">
+  <!-- endinject -->
+  <!-- plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/style.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/dynatable/jquery.dynatable.css">
+  <!-- endinject -->
+  <link rel="shortcut icon" href="<?php echo base_url(); ?>public/images/favicon.png" />
+  <script src="<?php echo base_url(); ?>public/js/jquery-1.7.2.min.js"></script>
+  <script src="<?php echo base_url(); ?>public/js/dynatable/jquery.dynatable.js"></script>
 </head>
 
 <body>
