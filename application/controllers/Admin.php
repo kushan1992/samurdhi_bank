@@ -8,7 +8,7 @@ class Admin extends CI_Controller {
 		parent::__construct();
 
 		$this->load->helper('url_helper');
-		
+    $this->load->model('admin_model');
 
 		// $this->load->library('session');
 
@@ -38,26 +38,72 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/signin');
 	}
 
-	public function process()  {  
-        $user = $this->input->post('username');  
-		$pass = $this->input->post('password');  
+	public function process()  {
+        $user = $this->input->post('username');
+		$pass = $this->input->post('password');
 
 		if((isset($user) && trim($user) !== '') && (isset($pass) && trim($pass) !== '')){
-			$this->load->model('Admin_model');  
+			$this->load->model('Admin_model');
 			$result = $this->Admin_model->checkLogin($user, $pass);
 
 			if(! $result){
-				$data['error'] = 'Invalid Username or Password';  
-				$this->load->view('admin/signin', $data);  
+				$data['error'] = 'Invalid Username or Password';
+				$this->load->view('admin/signin', $data);
 			} else{
 				redirect('admin');
-			} 
+			}
 
 		}
-	} 
+	}
 	public function create(){
 		$this->load->view('templates/header');
 		$this->load->view('admin/create');
+		$this->load->view('templates/footer');
+	}
+	public function privilage(){
+		$data['get_privilage'] = $this->admin_model->get_admin_privilage();
+		$this->load->view('templates/header');
+		$this->load->view('admin/privilage',$data);
+		$this->load->view('templates/footer');
+	}
+	public function create_privilage(){
+			$this->load->helper('form');
+	 		$this->load->library('form_validation');
+
+	 		$this->form_validation->set_rules('privilage','Privilage','trim|required');
+	 		$this->form_validation->set_rules('status','Status','trim|required');
+
+			if ($this->form_validation->run()=== FALSE){
+				$this->load->view('templates/header');
+				$this->load->view('admin/privilage');
+				$this->load->view('templates/footer');
+			}
+			else{
+				$data = array(
+	       	  'privilege' => $this->input->post('privilage'),
+	       	  'status' => $this->input->post('status'),
+
+	       	);
+	     $privilage_create = $this->admin_model->privilage_create($data);
+	     if($privilage_create == true){
+				$data['result_msg'] = 'Submitted Data';
+				$this->load->view('templates/header');
+	 			$this->load->view('admin/privilage',$data);
+	 			$this->load->view('templates/footer');
+			}else{
+				$data['result_msg'] = 'Something Wrong';
+				$this->load->view('templates/header');
+	 			$this->load->view('admin/privilage',$data);
+	 			$this->load->view('templates/footer');
+
+			}
+		}
+
+	}
+	public function Role(){
+		//$data['get_privilage'] = $this->admin_model->get_admin_privilage();
+		$this->load->view('templates/header');
+		$this->load->view('admin/role');
 		$this->load->view('templates/footer');
 	}
 

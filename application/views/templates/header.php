@@ -296,7 +296,10 @@
                   <a class="nav-link" href="<?php echo base_url(); ?>admin/create">Create</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="<?php echo base_url(); ?>public/pages/ui-features/typography.html">Privilege</a>
+                  <a class="nav-link" href="<?php echo base_url(); ?>admin/privilage">Privilege</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="<?php echo base_url(); ?>admin/privilage">Role</a>
                 </li>
               </ul>
             </div>

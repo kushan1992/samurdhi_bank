@@ -30,15 +30,25 @@ class admin_model extends CI_Model{
   }
 
 
-  
-	function get_customer() {
+
+	function get_admin_privilage() {
       $this->db->select('*');
-      $result = $this->db->get('customer');
+      $result = $this->db->get('privilege');
 
       if($result->num_rows() > 0){
         return $result->result_array();
       }else{
         return false;
       }
+   }
+
+	 function privilage_create($data)
+ 	 {
+     $this->db->insert('privilege', $data);
+     if ($this->db->affected_rows() > 0) {
+     return true;
+     } else {
+     return false;
+     }
    }
 }
