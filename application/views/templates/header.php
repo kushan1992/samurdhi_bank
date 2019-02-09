@@ -299,7 +299,7 @@
                   <a class="nav-link" href="<?php echo base_url(); ?>admin/privilage">Privilege</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="<?php echo base_url(); ?>admin/privilage">Role</a>
+                  <a class="nav-link" href="<?php echo base_url(); ?>admin/Role">Role</a>
                 </li>
               </ul>
             </div>

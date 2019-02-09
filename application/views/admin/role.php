@@ -4,14 +4,14 @@
       <div class="card">
         <div class="card-body">
           <h4 class="card-title">Create Role</h4>
-          <?php echo form_open('admin/create_privilage');?>
+          <?php echo form_open('admin/create_role');?>
             <div class="row">
               <div class="col-md-6">
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Role</label>
                   <div class="col-sm-9">
-                    <input type="text" name="Role" class="form-control" />
-                    <?php echo form_error('name', '<p class="text-warning" >', '</p>'); ?>
+                    <input type="text" name="role" class="form-control" />
+                    <?php echo form_error('role', '<p class="text-warning" >', '</p>'); ?>
                   </div>
                 </div>
               </div>
@@ -20,7 +20,7 @@
                   <label class="col-sm-3 col-form-label">Status</label>
                   <div class="col-sm-9">
                     <input type="text" name="status" class="form-control" />
-                    <?php echo form_error('nic', '<p class="text-warning" >', '</p>'); ?>
+                    <?php echo form_error('status', '<p class="text-warning" >', '</p>'); ?>
                   </div>
                 </div>
               </div>
@@ -58,10 +58,10 @@
            <tbody>
              <?php
             //  var_dump($get_customer);
-             if(!empty($get_privilage)){
-              foreach ($get_privilage as $row) { ?>
-                <tr id="<?php if(!empty($row['idprivilege'])){ echo $row['idprivilege']; }?>">
-      			            	<td><?php if(!empty($row['privilege'])){ echo $row['privilege']; }?></td>
+             if(!empty($get_roles)){
+              foreach ($get_roles as $row) { ?>
+                <tr id="<?php if(!empty($row['idrole'])){ echo $row['idrole']; }?>">
+      			            	<td><?php if(!empty($row['role'])){ echo $row['role']; }?></td>
       			            	<td><?php if(!empty($row['status'])){ echo $row['status']; }?></td>
                           <td>
                           <button type="button" class="btn btn-icons btn-rounded btn-secondary">

@@ -101,10 +101,44 @@ class Admin extends CI_Controller {
 
 	}
 	public function Role(){
-		//$data['get_privilage'] = $this->admin_model->get_admin_privilage();
+		$data['get_roles'] = $this->admin_model->get_admin_roles();
 		$this->load->view('templates/header');
-		$this->load->view('admin/role');
+		$this->load->view('admin/role',$data);
 		$this->load->view('templates/footer');
+	}
+	public function create_role(){
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('role','Privilage','trim|required');
+		$this->form_validation->set_rules('status','Status','trim|required');
+
+		if ($this->form_validation->run()=== FALSE){
+			$this->load->view('templates/header');
+			$this->load->view('admin/role');
+			$this->load->view('templates/footer');
+		}
+		else{
+			$data = array(
+					'role' => $this->input->post('role'),
+					'status' => $this->input->post('status'),
+
+				);
+		 $privilage_create = $this->admin_model->role_create($data);
+		 if($privilage_create == true){
+			$data['result_msg'] = 'Submitted Data';
+			$this->load->view('templates/header');
+			$this->load->view('admin/role',$data);
+			$this->load->view('templates/footer');
+		}else{
+			$data['result_msg'] = 'Something Wrong';
+			$this->load->view('templates/header');
+			$this->load->view('admin/role',$data);
+			$this->load->view('templates/footer');
+
+		}
+	}
+
 	}
 
 

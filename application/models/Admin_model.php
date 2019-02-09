@@ -51,4 +51,25 @@ class admin_model extends CI_Model{
      return false;
      }
    }
+
+	 function get_admin_roles() {
+       $this->db->select('*');
+       $result = $this->db->get('role');
+
+       if($result->num_rows() > 0){
+         return $result->result_array();
+       }else{
+         return false;
+       }
+    }
+
+	 function role_create($data)
+ 	 {
+     $this->db->insert('role', $data);
+     if ($this->db->affected_rows() > 0) {
+     return true;
+     } else {
+     return false;
+     }
+   }
 }
