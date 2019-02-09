@@ -1,0 +1,6 @@
+
+*.xml
+.idea/samurdhi_bank.iml
+application/config/config.php
+application/config/config.php
+application/config/database.php
