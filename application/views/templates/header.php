@@ -17,6 +17,7 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/style.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/switch.css">
   <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/dynatable/jquery.dynatable.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="<?php echo base_url(); ?>public/images/favicon.png" />

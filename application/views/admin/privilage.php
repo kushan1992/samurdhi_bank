@@ -10,17 +10,8 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Privilage</label>
                   <div class="col-sm-9">
-                    <input type="text" name="privilage" class="form-control" />
+                    <input type="text" name="privilage" class="form-control" required/>
                     <?php echo form_error('privilage', '<p class="text-warning" >', '</p>'); ?>
-                  </div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="form-group row">
-                  <label class="col-sm-3 col-form-label">Status</label>
-                  <div class="col-sm-9">
-                    <input type="text" name="status" class="form-control" />
-                    <?php echo form_error('status', '<p class="text-warning" >', '</p>'); ?>
                   </div>
                 </div>
               </div>
@@ -51,7 +42,7 @@
              <tr>
                <th>Privilage</th>
                <th>Status</th>
-               <th>Edit/Delete</th>
+               <th>Edit</th>
              </tr>
            </thead>
 
@@ -64,20 +55,14 @@
       			            	<td><?php if(!empty($row['privilege'])){ echo $row['privilege']; }?></td>
       			            	<td><?php if(!empty($row['status'])){ echo $row['status']; }?></td>
                           <td>
-                          <button type="button" class="btn btn-icons btn-rounded btn-secondary">
-                              <i class="mdi mdi-pencil"></i>
-                          </button>
-                          <button type="button" class="btn btn-icons btn-rounded btn-danger">
-                              <i class="mdi mdi-delete"></i>
-                          </button>
-
+                            <button type="button" class="btn btn-icons btn-rounded btn-secondary identifyingClass" data-toggle="modal" data-target="#myModal" data-id="<?php if(!empty($row['idprivilege'])){ echo $row['idprivilege']; }?>">
+                                <i class="mdi mdi-pencil"></i>
+                            </button>
                           </td>
 
 
       			     </tr>
     			     <?php
-
-
     			      }
     			    }
 
@@ -95,8 +80,46 @@
     </div>
   </div>
 
+  <!-- The Modal -->
+  <div class="modal" id="myModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Update Role</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+
+        <!-- Modal body -->
+        <div id="hiddenValue"></div>
+
+      </div>
+    </div>
+  </div>
   <script>
   $('#my-table').dynatable({
     sorting: true
   });
+
+  $(function () {
+          $(".identifyingClass").click(function () {
+
+              var privilege_id = $(this).data('id');
+              //console.log(my_id_value);
+              //$(".modal-body #hiddenValue").val(my_id_value);
+              $.ajax({
+                  type: 'POST',
+                  url: "<?php echo base_url(); ?>" + "admin/update_privilage",
+                  data: {id: privilege_id},
+                  success:function(result) {
+                    //  console.log(result); // alert your date variable value here
+                      $("#hiddenValue").html(result);
+                  },
+                  error:function(result) {
+                    console.log(result);
+                  }
+              });
+          })
+      });
   </script>

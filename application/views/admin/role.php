@@ -10,12 +10,11 @@
                 <div class="form-group row">
                   <label class="col-sm-3 col-form-label">Role</label>
                   <div class="col-sm-9">
-                    <input type="text" name="role" class="form-control" />
+                    <input type="text" name="role" class="form-control" required/>
                     <?php echo form_error('role', '<p class="text-warning" >', '</p>'); ?>
                   </div>
                 </div>
               </div>
-              <input type="hidden" name="status" value="Active" class="form-control" />
             </div>
             <div class="col-md-6">
               <div class="form-group row">
@@ -43,7 +42,7 @@
              <tr>
                <th>Privilage</th>
                <th>Status</th>
-               <th>Edit/Delete</th>
+               <th>Edit</th>
              </tr>
            </thead>
 
@@ -56,34 +55,24 @@
       			            	<td><?php if(!empty($row['role'])){ echo $row['role']; }?></td>
       			            	<td><?php if(!empty($row['status'])){ echo $row['status']; }?></td>
                           <td>
-                          <button type="button" class="btn btn-icons btn-rounded btn-secondary" data-toggle="modal" data-target="#myModal">
+                          <button type="button" class="btn btn-icons btn-rounded btn-secondary identifyingClass" data-toggle="modal" data-target="#myModal" data-id="<?php if(!empty($row['idrole'])){ echo $row['idrole']; }?>">
                               <i class="mdi mdi-pencil"></i>
                           </button>
-                          <button type="button" class="btn btn-icons btn-rounded btn-danger">
-                              <i class="mdi mdi-delete"></i>
-                          </button>
-
                           </td>
-
-
       			     </tr>
     			     <?php
-
-
     			      }
     			    }
-
             ?>
-
            </tbody>
-
-            </table>
+          </table>
         </div>
       </div>
      </div>
 
     </div>
   </div>
+</div>
 
   <!-- The Modal -->
  <div class="modal" id="myModal">
@@ -95,17 +84,19 @@
          <h4 class="modal-title">Update Role</h4>
          <button type="button" class="close" data-dismiss="modal">&times;</button>
        </div>
-
+       <?php// echo form_open('admin/update_role_privilage');?>
        <!-- Modal body -->
-       <div class="modal-body">
+       <!-- <div class="modal-body"> -->
 
-       </div>
+       <div id="hiddenValue"></div>
 
        <!-- Modal footer -->
-       <div class="modal-footer">
+       <!-- <div class="modal-footer">
          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-       </div>
+         <button type="submit" class="btn btn-success" onclick="myFunction()" data-dismiss="modal">Submit</button>
 
+       </div>
+       </form> -->
      </div>
    </div>
  </div>
@@ -114,4 +105,26 @@
   $('#my-table').dynatable({
     sorting: true
   });
+
+  $(function () {
+          $(".identifyingClass").click(function () {
+
+              var role_id = $(this).data('id');
+              //console.log(my_id_value);
+              //$(".modal-body #hiddenValue").val(my_id_value);
+              $.ajax({
+                  type: 'POST',
+                  url: "<?php echo base_url(); ?>" + "admin/get_permission_det",
+                  data: {id: role_id},
+                  success:function(result) {
+                    //  console.log(result); // alert your date variable value here
+                      $("#hiddenValue").html(result);
+                  },
+                  error:function(result) {
+                    console.log(result);
+                  }
+              });
+          })
+      });
+
   </script>
