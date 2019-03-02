@@ -362,7 +362,7 @@ class Admin extends CI_Controller {
 			foreach ($get_roles AS $row2) {
           if($row2['status']== "active" && $row2['idrole']==$row['idrole']){
 						echo'<option value="'.$row2['idrole'].'" selected>'.$row2['role'].'</option>';
-					}else{
+					}elseif($row2['status']== "active"){
 						echo'<option value="'.$row2['idrole'].'">'.$row2['role'].'</option>';
 					}
 			}
