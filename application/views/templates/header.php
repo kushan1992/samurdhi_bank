@@ -2,27 +2,29 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
-  <!-- plugins:css -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/css/vendor.bundle.addons.css">
-  <!-- bootstrap -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/css/bootstrap/bootstrap.min.css">
-  <!-- endinject -->
-  <!-- plugin css for this page -->
-  <!-- End plugin css for this page -->
-  <!-- inject:css -->
-  <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/style.css">
-  <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/switch.css">
-  <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/dynatable/jquery.dynatable.css">
-  <!-- endinject -->
-  <link rel="shortcut icon" href="<?php echo base_url(); ?>public/images/favicon.png" />
-  <script src="<?php echo base_url(); ?>public/js/jquery-1.7.2.min.js"></script>
-  <script src="<?php echo base_url(); ?>public/js/dynatable/jquery.dynatable.js"></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Star Admin Free Bootstrap Admin Dashboard Template</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/css/vendor.bundle.addons.css">
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>public/vendors/css/bootstrap/bootstrap.min.css">
+    <!-- custom css -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/custom/form_controls.css">
+    <!-- endinject -->
+    <!-- plugin css for this page -->
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/style.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/switch.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>public/css/dynatable/jquery.dynatable.css">
+    <!-- endinject -->
+    <link rel="shortcut icon" href="<?php echo base_url(); ?>public/images/favicon.png"/>
+    <script src="<?php echo base_url(); ?>public/js/jquery-1.7.2.min.js"></script>
+    <script src="<?php echo base_url(); ?>public/js/dynatable/jquery.dynatable.js"></script>
 </head>
 
 <body>
@@ -273,7 +275,7 @@
                     <div class="collapse" id="customer">
                         <ul class="nav flex-column sub-menu">
                             <li class="nav-item">
-                                <a class="nav-link" href="<?php echo base_url(); ?>customer/create">Create</a>
+                                <a class="nav-link" href="<?php echo base_url(); ?>customer/customers">Customers</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link"
@@ -302,6 +304,27 @@
                         </ul>
                     </div>
                 </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" data-toggle="collapse" href="#admin" aria-expanded="false"-->
+<!--                       aria-controls="ui-basic">-->
+<!--                        <i class="menu-icon mdi mdi-content-copy"></i>-->
+<!--                        <span class="menu-title">User</span>-->
+<!--                        <i class="menu-arrow"></i>-->
+<!--                    </a>-->
+<!--                    <div class="collapse" id="admin">-->
+<!--                        <ul class="nav flex-column sub-menu">-->
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link" href="--><?php //echo base_url(); ?><!--user/users">Users</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link" href="--><?php //echo base_url(); ?><!--user/privilage">Privilege (Not yet)</a>-->
+<!--                            </li>-->
+<!--                            <li class="nav-item">-->
+<!--                                <a class="nav-link" href="--><?php //echo base_url(); ?><!--user/role">Role (Not yet)</a>-->
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </li>-->
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#admin" aria-expanded="false"
                        aria-controls="ui-basic">

@@ -1,0 +1,24 @@
+#searchTypeDDBTN {
+    width: 160px;
+}
+#rowCountDDBTN {
+    width: 70px;
+}
+
+#customerPagination{
+    border-top: 2px solid #f2f2f2;
+}
+
+.pagination{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    float: right;
+}
+
+.emptyTable td{
+    text-align: center;
+}
+
+.dynatable-per-page, #dynatable-search-my-table{
+    display: none;
+}

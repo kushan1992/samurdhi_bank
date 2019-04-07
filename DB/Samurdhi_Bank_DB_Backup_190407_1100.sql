@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 09, 2019 at 12:09 PM
+-- Generation Time: Apr 07, 2019 at 07:36 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.3.1
 
@@ -33,10 +33,31 @@ CREATE TABLE `customer` (
   `memnumber` int(11) NOT NULL,
   `name` varchar(100) DEFAULT NULL,
   `nic` varchar(45) DEFAULT NULL,
+  `address` text NOT NULL,
+  `occupation` varchar(200) NOT NULL,
   `date` date DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   `is_delete` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `customer`
+--
+
+INSERT INTO `customer` (`idcustomer`, `memnumber`, `name`, `nic`, `address`, `occupation`, `date`, `status`, `is_delete`) VALUES
+(25147, 25146, 'Buddi Hasanka', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-02', 'Active', 1),
+(25188, 12121, 'Buddi Hasanka', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-01', 'Active', 1),
+(25189, 0, 'sdfsdf', 'sdfsd', 'sdfsdf', 'sdfsdf', '2019-03-01', 'Active', 1),
+(25190, 0, 'sdfsdf', 'sdfsd', 'sdfsdf', 'sdfsdf', '2019-03-01', 'Active', 1),
+(25191, 1122, 'cvxcvxcv nnn', 'xcvxcvxc', 'vxcvxcv', 'xcvxcv', '2019-03-01', 'Active', 1),
+(25192, 25146, 'Buddi Hasanka qq', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-01', 'Active', 1),
+(25193, 1212133, 'Buddi Hasanka ggg', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-02', 'Active', 1),
+(25194, 1212144, 'Buddi Hasanka fff', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-02', 'Active', 1),
+(25195, 1212155, 'Buddi Hasanka eee', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-02', 'Active', 1),
+(25196, 45345555, 'sdfsdf', 'sdfsd', 'sdfsdf', 'sdfsdf', '2019-03-02', 'Active', 1),
+(25197, 2514655, 'Buddi Hasanka hh', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-02', 'Active', 1),
+(25198, 12211, 'Buddi Hasanka', '15465446466546v', 'Samagi Mawatha, Elpitiya', 'sdfsdf', '2019-03-11', 'Active', 1),
+(25199, 234567, 'Buddi Hasanka', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-04-07', 'Active', 1);
 
 -- --------------------------------------------------------
 
@@ -52,9 +73,23 @@ CREATE TABLE `loan` (
   `duration` varchar(45) DEFAULT NULL,
   `amount` double NOT NULL,
   `status` varchar(45) DEFAULT NULL,
+  `date` date DEFAULT NULL,
   `iduser` int(11) NOT NULL,
   `is_delete` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `loan`
+--
+
+INSERT INTO `loan` (`idloan`, `idcustomer`, `idloan_type`, `interest`, `duration`, `amount`, `status`, `date`, `iduser`, `is_delete`) VALUES
+(1, 25198, 1, 6, '12', 200000, 'Preparing', '0000-00-00', 1, 1),
+(4, 25198, 1, 5, '12', 200000, 'Finished', '2019-03-17', 1, 1),
+(5, 25197, 1, 5, '12', 200000, 'Canceled', '2019-03-17', 1, 1),
+(6, 25197, 1, 4, '30', 600000, 'Ongoing', '2019-03-17', 1, 1),
+(19, 25197, 1, 12, '18', 50000, 'Preparing', '2019-04-07', 1, 1),
+(20, 25197, 1, 3, '30', 400000, 'Preparing', '2019-04-07', 1, 1),
+(21, 25197, 1, 12, '30', 600000, 'Preparing', '2019-04-07', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -72,6 +107,13 @@ CREATE TABLE `loan_type` (
   `status` varchar(45) DEFAULT NULL,
   `is_delete` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `loan_type`
+--
+
+INSERT INTO `loan_type` (`idloan_type`, `loan_name`, `duration_min`, `duration_max`, `interest_min`, `interest_max`, `status`, `is_delete`) VALUES
+(1, 'Housing', 3, 24, 2, 12, 'Active', 1);
 
 -- --------------------------------------------------------
 
@@ -110,7 +152,8 @@ CREATE TABLE `privilege` (
 
 INSERT INTO `privilege` (`idprivilege`, `privilege`, `status`) VALUES
 (1, 'test', 'test2'),
-(2, 'test2', 'test2');
+(2, 'test2', 'test2'),
+(3, 'test3', 'active');
 
 -- --------------------------------------------------------
 
@@ -129,7 +172,8 @@ CREATE TABLE `role` (
 --
 
 INSERT INTO `role` (`idrole`, `role`, `status`) VALUES
-(1, 'new role', 'state 1');
+(1, 'new role', 'state 1'),
+(2, 'role 2', 'active');
 
 -- --------------------------------------------------------
 
@@ -138,9 +182,17 @@ INSERT INTO `role` (`idrole`, `role`, `status`) VALUES
 --
 
 CREATE TABLE `role_has_privilege` (
-  `role_idrole` int(11) NOT NULL,
-  `privilege_idprivilege` int(11) NOT NULL
+  `role_id` int(11) NOT NULL,
+  `privilege_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `role_has_privilege`
+--
+
+INSERT INTO `role_has_privilege` (`role_id`, `privilege_id`) VALUES
+(2, 1),
+(2, 2);
 
 -- --------------------------------------------------------
 
@@ -156,6 +208,13 @@ CREATE TABLE `user` (
   `date` date DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`iduser`, `idrole`, `name`, `password`, `date`, `status`) VALUES
+(1, 2, 'root', 'mysql', '2019-03-02', 'active');
 
 --
 -- Indexes for dumped tables
@@ -207,9 +266,9 @@ ALTER TABLE `role`
 -- Indexes for table `role_has_privilege`
 --
 ALTER TABLE `role_has_privilege`
-  ADD PRIMARY KEY (`role_idrole`,`privilege_idprivilege`),
-  ADD KEY `fk_role_has_privilege_privilege1` (`privilege_idprivilege`),
-  ADD KEY `fk_role_has_privilege_role` (`role_idrole`);
+  ADD PRIMARY KEY (`role_id`,`privilege_id`),
+  ADD KEY `fk_role_has_privilege_privilege1` (`privilege_id`),
+  ADD KEY `fk_role_has_privilege_role` (`role_id`);
 
 --
 -- Indexes for table `user`
@@ -226,19 +285,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `idcustomer` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idcustomer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25200;
 
 --
 -- AUTO_INCREMENT for table `loan`
 --
 ALTER TABLE `loan`
-  MODIFY `idloan` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idloan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `loan_type`
 --
 ALTER TABLE `loan_type`
-  MODIFY `idloan_type` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idloan_type` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `payment_log`
@@ -250,19 +309,19 @@ ALTER TABLE `payment_log`
 -- AUTO_INCREMENT for table `privilege`
 --
 ALTER TABLE `privilege`
-  MODIFY `idprivilege` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `idprivilege` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `role`
 --
 ALTER TABLE `role`
-  MODIFY `idrole` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `idrole` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `iduser` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -288,8 +347,8 @@ ALTER TABLE `payment_log`
 -- Constraints for table `role_has_privilege`
 --
 ALTER TABLE `role_has_privilege`
-  ADD CONSTRAINT `fk_role_has_privilege_privilege1` FOREIGN KEY (`privilege_idprivilege`) REFERENCES `privilege` (`idprivilege`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_role_has_privilege_role` FOREIGN KEY (`role_idrole`) REFERENCES `role` (`idrole`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_role_has_privilege_privilege1` FOREIGN KEY (`privilege_id`) REFERENCES `privilege` (`idprivilege`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_role_has_privilege_role` FOREIGN KEY (`role_id`) REFERENCES `role` (`idrole`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Constraints for table `user`
