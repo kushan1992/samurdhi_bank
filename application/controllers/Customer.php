@@ -123,12 +123,13 @@ class Customer extends CI_Controller
 
     }
 
-    public function get_customer($id)
+    public function get_customer($where)
     {
 
-        $data = $this->customer_model->get_customer_by_id(array('idcustomer' => $id));
+        $data = $this->customer_model->get_customer_by_id($where);
         echo json_encode($data);
 
     }
+
 
 }

@@ -68,39 +68,39 @@
                                 if (!empty($get_loans)) {
                                     foreach ($get_loans as $row) { ?>
                                         <tr id="<?php if (!empty($row['idloan'])) {
-                                                    echo $row['idloan'];
-                                                } ?>">
+                                                            echo $row['idloan'];
+                                                        } ?>">
                                             <td><?php if (!empty($row['idloan'])) {
-                                                    echo $row['idloan'];
-                                                } ?></td>
+                                                            echo $row['idloan'];
+                                                        } ?></td>
                                             <td><?php if (!empty($row['idcustomer'])) {
-                                                    echo $row['idcustomer'];
-                                                } ?></td>
+                                                            echo $row['idcustomer'];
+                                                        } ?></td>
                                             <td><?php if (!empty($row['loan_name'])) {
-                                                    echo $row['loan_name'];
-                                                } ?></td>
+                                                            echo $row['loan_name'];
+                                                        } ?></td>
                                             <td><?php if (!empty($row['amount'])) {
-                                                    echo $row['amount'];
-                                                } ?></td>
+                                                            echo $row['amount'];
+                                                        } ?></td>
                                             <td><?php if (!empty($row['interest'])) {
-                                                    echo $row['interest'];
-                                                } ?></td>
+                                                            echo $row['interest'];
+                                                        } ?></td>
                                             <td><?php if (!empty($row['duration'])) {
-                                                    echo $row['duration'];
-                                                } ?></td>
+                                                            echo $row['duration'];
+                                                        } ?></td>
                                             <td><?php if (!empty($row['date'])) {
-                                                    echo $row['date'];
-                                                } ?></td>
+                                                            echo $row['date'];
+                                                        } ?></td>
                                             <td><?php if (!empty($row['status'])) {
-                                                    echo $row['status'];
-                                                } ?></td>
+                                                            echo $row['status'];
+                                                        } ?></td>
                                             <td>
                                                 <button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="editModal('<?php echo $row['idloan'] ?>')">
                                                     <i class="mdi mdi-pencil"></i>
                                                 </button>
                                             </td>
                                         </tr>
-                                    <?php
+                                <?php
                                     }
                                 }
                                 ?>
@@ -148,7 +148,7 @@
                                         ?>
                                         <option value="<?php echo $row['idloan_type'] ?>"><?php echo $row['loan_name'] ?></option>
                                     <?php } ?>
-                                <?php
+                            <?php
                                 }
                             }
                             ?>
@@ -177,6 +177,10 @@
                             <option value="Canceled">Canceled</option>
                             <option value="Finished">Finished</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Date</label>
+                        <input type="text" class="form-control" name="loan_date" placeholder="Date">
                     </div>
                     <div class="text-right mt-5">
                         <button type="button" class="btn left btn-success mr-2" onclick="save()" id="loanFormSubmitBtn">Submit</button>

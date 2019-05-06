@@ -13,6 +13,7 @@ class loan_model extends CI_Model
     var $table1 = 'loan';
     var $table2 = 'loan_type';
     var $table3 = 'payment_schedule';
+    var $table4 = 'payment_log';
 
     public function __construct()
     {
@@ -150,11 +151,34 @@ class loan_model extends CI_Model
             return false;
         }
     }
-    public function get_customer_loan_schedule($where)
+
+    public function get_loan_schedule($where)
     {
-        $this->db->like($where);
+        $this->db->where($where);
         $query = $this->db->get($this->table3);
         return $query->result_array();
+    }
+
+    public function get_last_loan_payment_log($where)
+    {
+        $this->db->where($where);
+        $this->db->order_by('date',"desc");
+        $this->db->limit(1);
+        $query = $this->db->get($this->table4);
+        return $query->result_array();
+    }
+
+    
+    public function save_payment_log($data)
+    {
+        $this->db->insert($this->table4, $data);
+        return $this->db->insert_id();
+    }
+
+    public function update_loan_schedule($where, $data)
+    {
+        $this->db->update($this->table3, $data, $where);
+        return $this->db->affected_rows();
     }
 
 }
