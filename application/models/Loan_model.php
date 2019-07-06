@@ -10,7 +10,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class loan_model extends CI_Model
 {
-    var $table = 'loan';
+    var $table1 = 'loan';
+    var $table2 = 'loan_type';
 
     public function __construct()
     {
@@ -20,7 +21,7 @@ class loan_model extends CI_Model
     public function loan_create($data)
     {
         echo $data;
-        $this->db->insert($this->table, $data);
+        $this->db->insert($this->table1, $data);
         if ($this->db->affected_rows() > 0) {
             return true;
         } else {
@@ -30,7 +31,7 @@ class loan_model extends CI_Model
 
     public function get_loans()
     {
-        $result = $this->db->get($this->table);
+        $result = $this->db->get($this->table1);
 
         if ($result->num_rows() > 0) {
             return $result->result_array();
@@ -43,7 +44,7 @@ class loan_model extends CI_Model
 
     public function get_loan_by_id( $where, $id)
     {
-        $this->db->from($this->table);
+        $this->db->from($this->table1);
         $this->db->where($where);
         $query = $this->db->get();
 
@@ -52,20 +53,62 @@ class loan_model extends CI_Model
 
     public function save($data)
     {
-        $this->db->insert($this->table, $data);
+        $this->db->insert($this->table1, $data);
         return $this->db->insert_id();
     }
 
     public function update($where, $data)
     {
-        $this->db->update($this->table, $data, $where);
+        $this->db->update($this->table1, $data, $where);
         return $this->db->affected_rows();
     }
 
     public function search($where)
     {
         $this->db->like($where);
-        $query  =   $this->db->get($this->table);
+        $query  =   $this->db->get($this->table1);
+        return $query->result_array();
+    }
+
+    
+    public function get_loan_types()
+    {
+        $result = $this->db->get($this->table2);
+
+        if ($result->num_rows() > 0) {
+            return $result->result_array();
+        } else {
+            return false;
+        }
+
+    }
+
+
+    public function save_loan_type($data)
+    {
+        $this->db->insert($this->table2, $data);
+        return $this->db->insert_id();
+    }
+
+    public function get_loan_type_by_id( $where, $id)
+    {
+        $this->db->from($this->table2);
+        $this->db->where($where);
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
+    public function update_loan_type($where, $data)
+    {
+        $this->db->update($this->table2, $data, $where);
+        return $this->db->affected_rows();
+    }
+
+    public function search_loan_type($where)
+    {
+        $this->db->like($where);
+        $query  =   $this->db->get($this->table2);
         return $query->result_array();
     }
 }

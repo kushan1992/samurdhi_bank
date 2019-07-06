@@ -21,9 +21,6 @@ class Customer extends CI_Controller
 
         $data['get_customers'] = $this->customer_model->get_customers();
         $data['rowCount'] = Array(10, 20, 50, 100);
-
-//        $data['search_types'] = Array(array("key" => "Member No", "value" => "memnumber"), array("key" => "Name", "value" => "name"), array("key" => "NIC", "value" => "nic"), array("key" => "Occupation", "value" => "occupation"), array("key" => "Status", "value" => "status"));
-
         $this->load->view('templates/header');
         $this->load->view('customer/customers', $data);
         $this->load->view('templates/footer');

@@ -2,13 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: buddhi_hasanka
- * Date: 24-Feb-19
- * Time: 10:46 AM
+ * Date: 05-Mar-19
+ * Time: 8:28 AM
  */
 ?>
 
 
-<div class="main-panel" id="customerView">
+<div class="main-panel" id="usersView">
 
     <div class="content-wrapper">
         <div class="col-12 grid-margin">
@@ -23,7 +23,7 @@
                             </button>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" name="search" id="searchCustomer" class="form-control form-control-lg"
+                            <input type="text" name="search" id="searchUsers" class="form-control form-control-lg"
                                    placeholder="Type here what you want to search" aria-label="Search"/>
                         </div>
 
@@ -46,7 +46,7 @@
 
                         <div class="col-md-2">
                             <button type="button" class="btn btn-primary btn-rounded btn-fw"
-                                    onclick="searchCustomers()">Search
+                                    onclick="searchUsers()">Search
                             </button>
                         </div>
                         <div class="col-md-1">
@@ -74,10 +74,8 @@
                         <table id="my-table" class="table table-hover">
                             <thead>
                             <tr>
-                                <th>Member Number</th>
                                 <th>Name</th>
-                                <th>NIC</th>
-                                <th>Occupation</th>
+                                <th>Role</th>
                                 <th>Create date</th>
                                 <th>State</th>
                                 <th>Edit/Delete</th>
@@ -85,22 +83,16 @@
                             </thead>
                             <tbody id="test">
                             <?php
-                            if (!empty($get_customers)) {
-                                foreach ($get_customers as $row) { ?>
-                                    <tr id="<?php if (!empty($row['idcustomer'])) {
-                                        echo $row['idcustomer'];
+                            if (!empty($get_users)) {
+                                foreach ($get_users as $row) { ?>
+                                    <tr id="<?php if (!empty($row['iduser'])) {
+                                        echo $row['iduser'];
                                     } ?>">
-                                        <td><?php if (!empty($row['memnumber'])) {
-                                                echo $row['memnumber'];
-                                            } ?></td>
                                         <td><?php if (!empty($row['name'])) {
                                                 echo $row['name'];
                                             } ?></td>
-                                        <td><?php if (!empty($row['nic'])) {
-                                                echo $row['nic'];
-                                            } ?></td>
-                                        <td><?php if (!empty($row['occupation'])) {
-                                                echo $row['occupation'];
+                                        <td><?php if (!empty($row['idrole'])) {
+                                                echo $row['idrole'];
                                             } ?></td>
                                         <td><?php if (!empty($row['date'])) {
                                                 echo $row['date'];
@@ -110,7 +102,7 @@
                                             } ?></td>
                                         <td style="text-align: center;">
                                             <button type="button" class="btn btn-icons btn-rounded btn-secondary"
-                                                    onclick="editModal('<?php echo $row['idcustomer'] ?>')">
+                                                    onclick="editModal('<?php echo $row['iduser'] ?>')">
                                                 <i class="mdi mdi-pencil"></i>
                                             </button>
                                             <!--                                            <button type="button" class="btn btn-icons btn-rounded btn-danger">-->
@@ -136,49 +128,49 @@
 
 
 <!-- The Modal -->
-<div class="modal" id="customerModal">
+<div class="modal" id="usersModal">
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Create Customer</h4>
+                <h4 class="modal-title">Create Users</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
             <!-- Modal body -->
             <div class="modal-body">
 
-                <form id="customerForm" action="#" method="post">
+                <form id="usersForm" action="#" method="post">
                     <div class="form-group">
-                        <label>Customer Number</label>
+                        <label>Users Number</label>
                         <input type="text" class="form-control" name="cus_number"
-                               placeholder="Customer Number">
-                        <p id="error_cus_number" class="text-warning">Customer Number field is required!</p>
+                               placeholder="Users Number">
+                        <p id="error_cus_number" class="text-warning">Users Number field is required!</p>
                     </div>
                     <div class="form-group">
                         <label>Name</label>
                         <input type="text" class="form-control" name="cus_name"
-                               placeholder="Customer Name">
-                        <p id="error_cus_name" class="text-warning">Customer Name field is required!</p>
+                               placeholder="Users Name">
+                        <p id="error_cus_name" class="text-warning">Users Name field is required!</p>
                     </div>
                     <div class="form-group">
                         <label>NIC</label>
                         <input type="text" class="form-control" name="cus_nic"
-                               placeholder="Customer NIC">
-                        <p id="error_cus_nic" class="text-warning">Customer NIC field is required!</p>
+                               placeholder="Users NIC">
+                        <p id="error_cus_nic" class="text-warning">Users NIC field is required!</p>
                     </div>
                     <div class="form-group">
                         <label>Address</label>
                         <input type="text" class="form-control" name="cus_address"
-                               placeholder="Customer Address">
-                        <p id="error_cus_address" class="text-warning">Customer Address field is required!</p>
+                               placeholder="Users Address">
+                        <p id="error_cus_address" class="text-warning">Users Address field is required!</p>
                     </div>
                     <div class="form-group">
                         <label>Occupation</label>
                         <input type="text" class="form-control" name="cus_occupation"
-                               placeholder="Customer Occupation">
-                        <p id="error_cus_occupation" class="text-warning">Customer Occupation field is required!</p>
+                               placeholder="Users Occupation">
+                        <p id="error_cus_occupation" class="text-warning">Users Occupation field is required!</p>
                     </div>
                     <div class="form-group">
                         <label>Status</label>
@@ -189,7 +181,7 @@
                     </div>
                     <div class="text-right mt-5">
                         <button type="button" class="btn left btn-success mr-2" onclick="save()"
-                                id="customerFormSubmitBtn">Submit
+                                id="usersFormSubmitBtn">Submit
                         </button>
                         <button type="button" class="btn left btn-danger" data-dismiss="modal">Cancel</button>
                     </div>
@@ -214,7 +206,7 @@
     $(document).ready(function () {
         let searchParams = new URLSearchParams(window.location.search);
         if (searchParams.has('queries[search]')) {
-            $('#searchCustomer').val(searchParams.get('queries[search]'));
+            $('#searchUsers').val(searchParams.get('queries[search]'));
         }
         if (searchParams.has('perPage')) {
             $('#rowCountDDBTN').html(searchParams.get('perPage'));
@@ -232,24 +224,22 @@
         let searchParams = new URLSearchParams(window.location.search);
         if (value === 10 || value === '10') {
             if (searchParams.has('queries[search]')) {
-                window.location.href = 'customers?queries[search]=' + searchParams.get('queries[search]');
+                window.location.href = 'users?queries[search]=' + searchParams.get('queries[search]');
             } else {
-                window.location.href = 'customers'
+                window.location.href = 'users'
             }
         } else {
             if (searchParams.has('queries[search]')) {
-                window.location.href = 'customers?perPage=' + value + '&queries[search]=' + searchParams.get('queries[search]');
+                window.location.href = 'users?perPage=' + value + '&queries[search]=' + searchParams.get('queries[search]');
             } else {
-                window.location.href = 'customers?perPage=' + value;
+                window.location.href = 'users?perPage=' + value;
             }
         }
     }
 
     function createModal() {
         selected_cus = null;
-        $('#customerForm')[0].reset();
-        $('.modal-title').text('Create Customer');
-        $('#customerModal').modal('show');
+        $('#usersModal').modal('show');
         hideErrorMsgs();
     }
 
@@ -275,11 +265,10 @@
     function editModal(id) {
         selected_cus = id;
         hideErrorMsgs();
-        $('.modal-title').text('Update Customer');
-        $('#customerModal').modal('show');
+        $('#usersModal').modal('show');
 
         $.ajax({
-            url: "<?php echo site_url('customer/get_customer')?>/" + id,
+            url: "<?php echo site_url('users/get_users')?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function (data) {
@@ -300,33 +289,33 @@
 
     function save() {
         var url;
-        // swal("Oops", "Failed to Save Customer, Something went wrong!", "error");
+        swal("Oops", "Failed to Save Users, Something went wrong!", "error");
 
         let formStatus = checkInputs();
 
         if (formStatus) {
 
             if (selected_cus === null) {
-                url = "<?php echo site_url('customer/cus_create')?>";
+                url = "<?php echo site_url('users/cus_create')?>";
             } else {
-                url = "<?php echo site_url('customer/cus_update')?>/" + selected_cus;
+                url = "<?php echo site_url('users/cus_update')?>/" + selected_cus;
             }
 
             $.ajax({
                 url: url,
                 type: "POST",
-                data: $('#customerForm').serialize(),
+                data: $('#usersForm').serialize(),
                 dataType: "JSON",
                 success: function (data) {
 
                     if (data.status) {
-                        $('#customerModal').modal('hide');
+                        $('#usersModal').modal('hide');
                         if (selected_cus === null) {
-                            swal("Success!", "Customer saved successfully!", "success").then((value) => {
+                            swal("Success!", "Users saved successfully!", "success").then((value) => {
                                 location.reload();
                             });
                         } else {
-                            swal("Success!", "Customer updated successfully!", "success").then((value) => {
+                            swal("Success!", "Users updated successfully!", "success").then((value) => {
                                 location.reload();
                             });
                         }
@@ -334,9 +323,9 @@
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     if (selected_cus === null) {
-                        swal("Oops", "Failed to Save Customer, Something went wrong!", "error")
+                        swal("Oops", "Failed to Save Users, Something went wrong!", "error")
                     } else {
-                        swal("Oops", "Failed to Update Customer, Something went wrong!", "error")
+                        swal("Oops", "Failed to Update Users, Something went wrong!", "error")
                     }
                 }
             });
@@ -344,18 +333,76 @@
         }
     }
 
-    function searchCustomers() {
-        let v = $('#searchCustomer').val();
+    function searchUsers() {
+        let v = $('#searchUsers').val();
         if (v === "") {
-            window.location.href = 'customers'
+            window.location.href = 'users'
         } else {
-            window.location.href = 'customers?queries[search]=' + v;
+            window.location.href = 'users?queries[search]=' + v;
         }
+
+        // if(searchParams.has('perPage')){
+        //     if(searchParams.has('queries[search]')){
+        //         let v2 = searchParams.get('queries[search]');
+        //         window.location.href = '?queries[search]='+v+'&perPage='+v2;
+        //         // searchParams.set('queries[search]',v);
+        //     } else {
+        //         window.location.href = '&queries[search]='+v;
+        //     }
+        // } else {
+        //     window.location.href = '?queries[search]='+v;
+        // }
+        // var e = jQuery.Event("keypress");
+        // e.which = 13; //choose the one you want
+        // e.keyCode = 13;
+        // $("#dynatable-query-search-my-table").trigger(e);
+
+        //$.ajax({
+        //    url: "<?php //echo site_url('users/cus_search')?>//",
+        //    type: "POST",
+        //    data: {searchType : searchType, text : text},
+        //    success: function (data) {
+        //        $("#test").html(data);
+        //
+        //        $('#my-table').dynatable({
+        //            pushState: false,
+        //            paginate: true,
+        //            sort: true,
+        //            recordCount: true
+        //        });
+        //
+        //        // dynatable.dom.update();
+        //
+        //
+        //    },
+        //    error: function (jqXHR, textStatus, errorThrown) {
+        //        alert('Error get data from ajax');
+        //    }
+        //});
+
+        // var input, filter, table, tr, td, i, txtValue;
+        // input = document.getElementById("searchUsers");
+        // filter = input.value.toUpperCase();
+        // table = document.getElementById("my-table");
+        // tr = table.getElementsByTagName("tr");
+        //
+        //
+        // for (i = 0; i < tr.length; i++) {
+        //     td = tr[i].getElementsByTagName("td")[searchType];
+        //     if (td) {
+        //         txtValue = td.textContent || td.innerText;
+        //         if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        //             tr[i].style.display = "";
+        //         } else {
+        //             tr[i].style.display = "none";
+        //         }
+        //     }
+        // }
 
     }
 
 
-    function deleteCustomer(id) {
+    function deleteUsers(id) {
         alert("Delete Button clicked with id " + id);
     }
 

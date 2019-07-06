@@ -230,6 +230,8 @@
 
     function createModal() {
         selected_loan = null;
+        $('#loanForm')[0].reset();
+        $('.modal-title').text('Create Loan');
         $('#loanModal').modal('show');
         hideErrorMsgs();
     }
@@ -256,6 +258,7 @@
     function editModal(id) {
         selected_loan = id;
         hideErrorMsgs();
+        $('.modal-title').text('Update Loan');
         $('#loanModal').modal('show');
 
         $.ajax({
