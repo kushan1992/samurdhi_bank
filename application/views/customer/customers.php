@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: buddhi_hasanka
@@ -17,48 +18,49 @@
                     <div class="row">
 
                         <div class="col-md-1">
-                            <button type="button" class="btn btn-icons btn-rounded btn-success"
-                                    onclick="createModal()">
+                            <button type="button" class="btn btn-icons btn-rounded btn-success" onclick="createModal()">
                                 <i class="mdi mdi-plus"></i>
                             </button>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" name="search" id="searchCustomer" class="form-control form-control-lg"
-                                   placeholder="Type here what you want to search" aria-label="Search"/>
+                            <input type="text" name="search" id="searchCustomer" class="form-control form-control-lg" placeholder="Type here what you want to search" aria-label="Search" />
                         </div>
 
                         <!--                        <div class="col-md-2">-->
                         <!--                            <div class="dropdown">-->
                         <!--                                <button class="btn btn-primary dropdown-toggle" type="button" id="searchTypeDDBTN"-->
                         <!--                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                        <!--                                    --><?php //echo $search_types[0]['key'] ?>
+                        <!--                                    --><?php //echo $search_types[0]['key'] 
+                                                                    ?>
                         <!--                                </button>-->
                         <!--                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
-                        <!--                                    --><?php //foreach ($search_types as $value) { ?>
+                        <!--                                    --><?php //foreach ($search_types as $value) { 
+                                                                    ?>
                         <!--                                        <a class="dropdown-item"-->
-                        <!--                                           onclick="setSearchType('--><?php //echo $value['key'] ?>
-                        <!--                                                   ','<?php //echo $value['value'] ?>//')">-->
-                        <!--                                            <?php //echo $value['key']; ?></a>-->
-                        <!--                                    --><?php //} ?>
+                        <!--                                           onclick="setSearchType('--><?php //echo $value['key'] 
+                                                                                                    ?>
+                        <!--                                                   ','<?php //echo $value['value'] 
+                                                                                    ?>//')">-->
+                        <!--                                            <?php //echo $value['key']; 
+                                                                        ?></a>-->
+                        <!--                                    --><?php //} 
+                                                                    ?>
                         <!--                                </div>-->
                         <!--                            </div>-->
                         <!--                        </div>-->
 
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-primary btn-rounded btn-fw"
-                                    onclick="searchCustomers()">Search
+                            <button type="button" class="btn btn-primary btn-rounded btn-fw" onclick="searchCustomers()">Search
                             </button>
                         </div>
                         <div class="col-md-1">
                             <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="rowCountDDBTN"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="rowCountDDBTN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <?php echo $rowCount[0] ?>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <?php foreach ($rowCount as $value) { ?>
-                                        <a class="dropdown-item"
-                                           onclick="setRowCount('<?php echo $value ?>')"><?php echo $value; ?></a>
+                                        <a class="dropdown-item" onclick="setRowCount('<?php echo $value ?>')"><?php echo $value; ?></a>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -73,55 +75,54 @@
                     <div class="table-responsive">
                         <table id="my-table" class="table table-hover">
                             <thead>
-                            <tr>
-                                <th>Member Number</th>
-                                <th>Name</th>
-                                <th>NIC</th>
-                                <th>Occupation</th>
-                                <th>Create date</th>
-                                <th>State</th>
-                                <th>Edit/Delete</th>
-                            </tr>
+                                <tr>
+                                    <th>Member Number</th>
+                                    <th>Name</th>
+                                    <th>NIC</th>
+                                    <th>Occupation</th>
+                                    <th>Create date</th>
+                                    <th>State</th>
+                                    <th>Edit/Delete</th>
+                                </tr>
                             </thead>
                             <tbody id="test">
-                            <?php
-                            if (!empty($get_customers)) {
-                                foreach ($get_customers as $row) { ?>
-                                    <tr id="<?php if (!empty($row['idcustomer'])) {
-                                        echo $row['idcustomer'];
-                                    } ?>">
-                                        <td><?php if (!empty($row['memnumber'])) {
-                                                echo $row['memnumber'];
-                                            } ?></td>
-                                        <td><?php if (!empty($row['name'])) {
-                                                echo $row['name'];
-                                            } ?></td>
-                                        <td><?php if (!empty($row['nic'])) {
-                                                echo $row['nic'];
-                                            } ?></td>
-                                        <td><?php if (!empty($row['occupation'])) {
-                                                echo $row['occupation'];
-                                            } ?></td>
-                                        <td><?php if (!empty($row['date'])) {
-                                                echo $row['date'];
-                                            } ?></td>
-                                        <td><?php if (!empty($row['status'])) {
-                                                echo $row['status'];
-                                            } ?></td>
-                                        <td style="text-align: center;">
-                                            <button type="button" class="btn btn-icons btn-rounded btn-secondary"
-                                                    onclick="editModal('<?php echo $row['idcustomer'] ?>')">
-                                                <i class="mdi mdi-pencil"></i>
-                                            </button>
-                                            <!--                                            <button type="button" class="btn btn-icons btn-rounded btn-danger">-->
-                                            <!--                                                <i class="mdi mdi-delete"></i>-->
-                                            <!--                                            </button>-->
-                                        </td>
-                                    </tr>
+                                <?php
+                                if (!empty($get_customers)) {
+                                    foreach ($get_customers as $row) { ?>
+                                        <tr id="<?php if (!empty($row['idcustomer'])) {
+                                                    echo $row['idcustomer'];
+                                                } ?>">
+                                            <td><?php if (!empty($row['memnumber'])) {
+                                                    echo $row['memnumber'];
+                                                } ?></td>
+                                            <td><?php if (!empty($row['name'])) {
+                                                    echo $row['name'];
+                                                } ?></td>
+                                            <td><?php if (!empty($row['nic'])) {
+                                                    echo $row['nic'];
+                                                } ?></td>
+                                            <td><?php if (!empty($row['occupation'])) {
+                                                    echo $row['occupation'];
+                                                } ?></td>
+                                            <td><?php if (!empty($row['date'])) {
+                                                    echo $row['date'];
+                                                } ?></td>
+                                            <td><?php if (!empty($row['status'])) {
+                                                    echo $row['status'];
+                                                } ?></td>
+                                            <td style="text-align: center;">
+                                                <button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="editModal('<?php echo $row['idcustomer'] ?>')">
+                                                    <i class="mdi mdi-pencil"></i>
+                                                </button>
+                                                <!--                                            <button type="button" class="btn btn-icons btn-rounded btn-danger">-->
+                                                <!--                                                <i class="mdi mdi-delete"></i>-->
+                                                <!--                                            </button>-->
+                                            </td>
+                                        </tr>
                                     <?php
+                                    }
                                 }
-                            }
-                            ?>
+                                ?>
                             </tbody>
 
                         </table>
@@ -152,32 +153,27 @@
                 <form id="customerForm" action="#" method="post">
                     <div class="form-group">
                         <label>Customer Number</label>
-                        <input type="text" class="form-control" name="cus_number"
-                               placeholder="Customer Number">
+                        <input type="text" class="form-control" name="cus_number" placeholder="Customer Number">
                         <p id="error_cus_number" class="text-warning">Customer Number field is required!</p>
                     </div>
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" name="cus_name"
-                               placeholder="Customer Name">
+                        <input type="text" class="form-control" name="cus_name" placeholder="Customer Name">
                         <p id="error_cus_name" class="text-warning">Customer Name field is required!</p>
                     </div>
                     <div class="form-group">
                         <label>NIC</label>
-                        <input type="text" class="form-control" name="cus_nic"
-                               placeholder="Customer NIC">
+                        <input type="text" class="form-control" name="cus_nic" placeholder="Customer NIC">
                         <p id="error_cus_nic" class="text-warning">Customer NIC field is required!</p>
                     </div>
                     <div class="form-group">
                         <label>Address</label>
-                        <input type="text" class="form-control" name="cus_address"
-                               placeholder="Customer Address">
+                        <input type="text" class="form-control" name="cus_address" placeholder="Customer Address">
                         <p id="error_cus_address" class="text-warning">Customer Address field is required!</p>
                     </div>
                     <div class="form-group">
                         <label>Occupation</label>
-                        <input type="text" class="form-control" name="cus_occupation"
-                               placeholder="Customer Occupation">
+                        <input type="text" class="form-control" name="cus_occupation" placeholder="Customer Occupation">
                         <p id="error_cus_occupation" class="text-warning">Customer Occupation field is required!</p>
                     </div>
                     <div class="form-group">
@@ -188,8 +184,7 @@
                         </select>
                     </div>
                     <div class="text-right mt-5">
-                        <button type="button" class="btn left btn-success mr-2" onclick="save()"
-                                id="customerFormSubmitBtn">Submit
+                        <button type="button" class="btn left btn-success mr-2" onclick="save()" id="customerFormSubmitBtn">Submit
                         </button>
                         <button type="button" class="btn left btn-danger" data-dismiss="modal">Cancel</button>
                     </div>
@@ -211,7 +206,7 @@
     var selected_cus = null;
     var searchType = 'memnumber';
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         let searchParams = new URLSearchParams(window.location.search);
         if (searchParams.has('queries[search]')) {
             $('#searchCustomer').val(searchParams.get('queries[search]'));
@@ -254,14 +249,14 @@
     }
 
     function hideErrorMsgs() {
-        $.each(inputArray, function (key, value) {
+        $.each(inputArray, function(key, value) {
             $("#error_" + value).hide();
         })
     }
 
     function checkInputs() {
         let formStatus = true;
-        $.each(inputArray, function (key, value) {
+        $.each(inputArray, function(key, value) {
             if ($("input[name=" + value + "]").val() === "") {
                 $("#error_" + value).show();
                 formStatus = false;
@@ -279,10 +274,10 @@
         $('#customerModal').modal('show');
 
         $.ajax({
-            url: "<?php echo site_url('customer/get_customer')?>/" + id,
+            url: "<?php echo site_url('customer/get_customer') ?>/" + id,
             type: "GET",
             dataType: "JSON",
-            success: function (data) {
+            success: function(data) {
 
                 $('[name="cus_number"]').val(data.memnumber);
                 $('[name="cus_name"]').val(data.name);
@@ -292,7 +287,7 @@
                 $('[name="cus_status"]').val(data.status);
 
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 alert('Error get data from ajax');
             }
         });
@@ -300,16 +295,15 @@
 
     function save() {
         var url;
-        // swal("Oops", "Failed to Save Customer, Something went wrong!", "error");
 
         let formStatus = checkInputs();
 
         if (formStatus) {
 
             if (selected_cus === null) {
-                url = "<?php echo site_url('customer/cus_create')?>";
+                url = "<?php echo site_url('customer/cus_create') ?>";
             } else {
-                url = "<?php echo site_url('customer/cus_update')?>/" + selected_cus;
+                url = "<?php echo site_url('customer/cus_update') ?>/" + selected_cus;
             }
 
             $.ajax({
@@ -317,9 +311,22 @@
                 type: "POST",
                 data: $('#customerForm').serialize(),
                 dataType: "JSON",
-                success: function (data) {
+                success: function(data) {
+                    if (data.status && data[0].code) {
 
-                    if (data.status) {
+                        var msg_part1 = "Failed to Save Customer";
+                        if (selected_cus !== null) {
+                            msg_part1 = "Failed to Update Customer";
+                        }
+
+                        if (data[0].code === 1062) {
+                            swal("Oops", msg_part1 + ", Duplicate entry!", "error")
+                        } else {
+                            swal("Oops", msg_part1 + ", Something went wrong!", "error")
+                        }
+                        alert(data[0].message);
+
+                    } else {
                         $('#customerModal').modal('hide');
                         if (selected_cus === null) {
                             swal("Success!", "Customer saved successfully!", "success").then((value) => {
@@ -332,16 +339,18 @@
                         }
                     }
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(request, xhr, status) {
+                    console.log(arguments);
+                    console.log(request);
+
                     if (selected_cus === null) {
-                        swal("Oops", "Failed to Save Customer, Something went wrong!", "error")
+                        swal("Oops", "ERROR ----- Failed to Save Customer, Something went wrong!", "error")
                     } else {
-                        swal("Oops", "Failed to Update Customer, Something went wrong!", "error")
+                        swal("Oops", "ERROR ----- Failed to Update Customer, Something went wrong!", "error")
                     }
                 }
             });
-        } else {
-        }
+        } else {}
     }
 
     function searchCustomers() {
@@ -358,5 +367,4 @@
     function deleteCustomer(id) {
         alert("Delete Button clicked with id " + id);
     }
-
 </script>

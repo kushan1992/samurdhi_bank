@@ -51,7 +51,7 @@ class Loan extends CI_Controller
         );
 
         $insert = $this->loan_model->save($data);
-        echo json_encode(array("status" => TRUE, "id"));
+        echo json_encode(array("status" => TRUE, $insert));
     }
 
     public function loan_update($id)
@@ -135,7 +135,7 @@ class Loan extends CI_Controller
         );
 
         $insert = $this->loan_model->save_loan_type($data);
-        echo json_encode(array("status" => TRUE, "id"));
+        echo json_encode(array("status" => TRUE, $insert));
     }
 
 

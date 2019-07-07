@@ -42,7 +42,7 @@ class Customer extends CI_Controller
         );
 
         $insert = $this->customer_model->save($data);
-        echo json_encode(array("status" => TRUE, "id"));
+        echo json_encode(array("status" => TRUE, $insert));
 
     }
 
