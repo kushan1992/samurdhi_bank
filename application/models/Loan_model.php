@@ -29,10 +29,15 @@ class loan_model extends CI_Model
         }
     }
 
+    
     public function get_loans()
     {
-        $result = $this->db->get($this->table1);
+        $this->db->select('loan.idloan, loan.idcustomer, loan.idloan_type, loan.interest, loan.duration, loan.amount, loan.status, loan.date, loan.iduser, loan.is_delete,loan_type.loan_name');
+        $this->db->from('loan');
+        $this->db->join('loan_type', 'loan_type.idloan_type = loan.idloan_type'); 
+        $result = $this->db->get();
 
+        // $result = $this->db->get($this->table1);
         if ($result->num_rows() > 0) {
             return $result->result_array();
         } else {

@@ -260,7 +260,7 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link"
-                                   href="<?php echo base_url(); ?>loan/loan_type">Loan Types</a>
+                                   href="<?php echo base_url(); ?>loan/loan_types">Loan Types</a>
                             </li>
                         </ul>
                     </div>

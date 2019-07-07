@@ -27,6 +27,7 @@ class Loan extends CI_Controller
     public function loans()
     {
         $data['get_loans'] = $this->loan_model->get_loans();
+        $data['get_loanTypes'] = $this->loan_model->get_loan_types();
         $data['rowCount'] = array(10, 20, 50, 100);
 
         $this->load->view('templates/header');
@@ -121,7 +122,7 @@ class Loan extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    
+
     public function loan_type_create()
     {
 
@@ -137,7 +138,7 @@ class Loan extends CI_Controller
         echo json_encode(array("status" => TRUE, "id"));
     }
 
-    
+
     public function get_loan_type($id)
     {
         $data = $this->loan_model->get_loan_type_by_id(array('idloan_type' => $id), $id);

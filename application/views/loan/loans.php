@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: buddhi_hasanka
@@ -16,31 +17,26 @@
                     <div class="row">
 
                         <div class="col-md-1">
-                            <button type="button" class="btn btn-icons btn-rounded btn-success"
-                                    onclick="createModal()">
+                            <button type="button" class="btn btn-icons btn-rounded btn-success" onclick="createModal()">
                                 <i class="mdi mdi-plus"></i>
                             </button>
                         </div>
                         <div class="col-md-8">
-                            <input type="text" name="search" id="searchLoan" class="form-control form-control-lg"
-                                   placeholder="Type here what you want to search" aria-label="Search"/>
+                            <input type="text" name="search" id="searchLoan" class="form-control form-control-lg" placeholder="Type here what you want to search" aria-label="Search" />
                         </div>
 
                         <div class="col-md-2">
-                            <button type="button" class="btn btn-primary btn-rounded btn-fw"
-                                    onclick="searchLoans()">Search
+                            <button type="button" class="btn btn-primary btn-rounded btn-fw" onclick="searchLoans()">Search
                             </button>
                         </div>
                         <div class="col-md-1">
                             <div class="dropdown">
-                                <button class="btn btn-primary dropdown-toggle" type="button" id="rowCountDDBTN"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="rowCountDDBTN" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <?php echo $rowCount[0] ?>
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     <?php foreach ($rowCount as $value) { ?>
-                                        <a class="dropdown-item"
-                                           onclick="setRowCount('<?php echo $value ?>')"><?php echo $value; ?></a>
+                                        <a class="dropdown-item" onclick="setRowCount('<?php echo $value ?>')"><?php echo $value; ?></a>
                                     <?php } ?>
                                 </div>
                             </div>
@@ -55,60 +51,59 @@
                     <div class="table-responsive">
                         <table id="my-table" class="table table-hover">
                             <thead>
-                            <tr>
-                                <th>Loan ID</th>
-                                <th>Loan Name</th>
-                                <th>Loan Type</th>
-                                <th>Amount</th>
-                                <th>Interest</th>
-                                <th>Duration</th>
-                                <th>Create Date</th>
-                                <th>Status</th>
-                                <th>Edit/Delete</th>
-                            </tr>
+                                <tr>
+                                    <th>Loan ID</th>
+                                    <th>Loan Name</th>
+                                    <th>Loan Type</th>
+                                    <th>Amount</th>
+                                    <th>Interest</th>
+                                    <th>Duration</th>
+                                    <th>Create Date</th>
+                                    <th>Status</th>
+                                    <th>Edit/Delete</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <?php
-                            if (!empty($get_loans)) {
-                                foreach ($get_loans as $row) { ?>
-                                    <tr id="<?php if (!empty($row['idloan'])) {
-                                        echo $row['idloan'];
-                                    } ?>">
-                                        <td><?php if (!empty($row['idloan'])) {
-                                                echo $row['idloan'];
-                                            } ?></td>
-                                        <td><?php if (!empty($row['idcustomer'])) {
-                                                echo $row['idcustomer'];
-                                            } ?></td>
-                                        <td><?php if (!empty($row['idloan_type'])) {
-                                                echo $row['idloan_type'];
-                                            } ?></td>
-                                        <td><?php if (!empty($row['amount'])) {
-                                                echo $row['amount'];
-                                            } ?></td>
-                                        <td><?php if (!empty($row['interest'])) {
-                                                echo $row['interest'];
-                                            } ?></td>
-                                        <td><?php if (!empty($row['duration'])) {
-                                                echo $row['duration'];
-                                            } ?></td>
-                                        <td><?php if (!empty($row['date'])) {
-                                                echo $row['date'];
-                                            } ?></td>
-                                        <td><?php if (!empty($row['status'])) {
-                                                echo $row['status'];
-                                            } ?></td>
-                                        <td>
-                                            <button type="button" class="btn btn-icons btn-rounded btn-secondary"
-                                                    onclick="editModal('<?php echo $row['idloan'] ?>')">
-                                                <i class="mdi mdi-pencil"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <?php
+                                if (!empty($get_loans)) {
+                                    foreach ($get_loans as $row) { ?>
+                                        <tr id="<?php if (!empty($row['idloan'])) {
+                                                    echo $row['idloan'];
+                                                } ?>">
+                                            <td><?php if (!empty($row['idloan'])) {
+                                                    echo $row['idloan'];
+                                                } ?></td>
+                                            <td><?php if (!empty($row['idcustomer'])) {
+                                                    echo $row['idcustomer'];
+                                                } ?></td>
+                                            <td><?php if (!empty($row['loan_name'])) {
+                                                    echo $row['loan_name'];
+                                                } ?></td>
+                                            <td><?php if (!empty($row['amount'])) {
+                                                    echo $row['amount'];
+                                                } ?></td>
+                                            <td><?php if (!empty($row['interest'])) {
+                                                    echo $row['interest'];
+                                                } ?></td>
+                                            <td><?php if (!empty($row['duration'])) {
+                                                    echo $row['duration'];
+                                                } ?></td>
+                                            <td><?php if (!empty($row['date'])) {
+                                                    echo $row['date'];
+                                                } ?></td>
+                                            <td><?php if (!empty($row['status'])) {
+                                                    echo $row['status'];
+                                                } ?></td>
+                                            <td>
+                                                <button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="editModal('<?php echo $row['idloan'] ?>')">
+                                                    <i class="mdi mdi-pencil"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
                                     <?php
+                                    }
                                 }
-                            }
-                            ?>
+                                ?>
                             </tbody>
                         </table>
                     </div>
@@ -145,8 +140,18 @@
                     <div class="form-group">
                         <label>Loan Type</label>
                         <select class="form-control" name="loan_type">
-                            <option value="1">Housing</option>
-                            <option value="2">Education</option>
+                            <?php
+                            if (!empty($get_loanTypes)) {
+                                foreach ($get_loanTypes as $row) {
+                                    if (!empty($row['idloan_type'])) {
+                                        echo $row['idloan_type'];
+                                        ?>
+                                        <option value="<?php echo $row['idloan_type'] ?>"><?php echo $row['loan_name'] ?></option>
+                                    <?php } ?>
+                                <?php
+                                }
+                            }
+                            ?>
                         </select>
                     </div>
                     <div class="form-group">
@@ -199,7 +204,7 @@
     var inputArray = ['loan_cid', 'loan_amount', 'loan_interest', 'loan_duration'];
     var selected_loan = null;
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         let searchParams = new URLSearchParams(window.location.search);
         if (searchParams.has('queries[search]')) {
             $('#searchLoan').val(searchParams.get('queries[search]'));
@@ -237,14 +242,14 @@
     }
 
     function hideErrorMsgs() {
-        $.each(inputArray, function (key, value) {
+        $.each(inputArray, function(key, value) {
             $("#error_" + value).hide();
         })
     }
 
     function checkInputs() {
         let formStatus = true;
-        $.each(inputArray, function (key, value) {
+        $.each(inputArray, function(key, value) {
             if ($("input[name=" + value + "]").val() === "") {
                 $("#error_" + value).show();
                 formStatus = false;
@@ -262,10 +267,10 @@
         $('#loanModal').modal('show');
 
         $.ajax({
-            url: "<?php echo site_url('loan/get_loan')?>/" + id,
+            url: "<?php echo site_url('loan/get_loan') ?>/" + id,
             type: "GET",
             dataType: "JSON",
-            success: function (data) {
+            success: function(data) {
 
                 $('[name="loan_number"]').val(data.idcustomer);
                 $('[name="loan_cid"]').val(data.idcustomer);
@@ -276,7 +281,7 @@
                 $('[name="loan_status"]').val(data.status);
 
             },
-            error: function (jqXHR, textStatus, errorThrown) {
+            error: function(jqXHR, textStatus, errorThrown) {
                 alert('Error get data from ajax');
             }
         });
@@ -291,9 +296,9 @@
         if (formStatus) {
 
             if (selected_loan === null) {
-                url = "<?php echo site_url('loan/loan_create')?>";
+                url = "<?php echo site_url('loan/loan_create') ?>";
             } else {
-                url = "<?php echo site_url('loan/loan_update')?>/" + selected_loan;
+                url = "<?php echo site_url('loan/loan_update') ?>/" + selected_loan;
             }
 
             $.ajax({
@@ -301,7 +306,7 @@
                 type: "POST",
                 data: $('#loanForm').serialize(),
                 dataType: "JSON",
-                success: function (data) {
+                success: function(data) {
                     if (data.status) {
                         $('#loanModal').modal('hide');
                         if (selected_loan === null) {
@@ -315,7 +320,7 @@
                         }
                     }
                 },
-                error: function (jqXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                     alert(textStatus);
                     alert(errorThrown);
                     alert(jqXHR);
@@ -326,8 +331,7 @@
                     }
                 }
             });
-        } else {
-        }
+        } else {}
     }
 
     function searchLoans() {
