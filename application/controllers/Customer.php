@@ -12,6 +12,7 @@ class Customer extends CI_Controller
         $this->load->helper('url_helper');
         $this->load->model('customer_model');
         $this->load->helper('form');
+        $this->load->library('session');
 
     }
 

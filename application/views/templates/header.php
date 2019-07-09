@@ -1,3 +1,4 @@
+<?php $session_data = $this->session->all_userdata(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,7 +41,7 @@
             </a>
         </div>
         <div class="navbar-menu-wrapper d-flex align-items-center">
-            <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
+            <!-- <ul class="navbar-nav navbar-nav-left header-links d-none d-md-flex">
                 <li class="nav-item">
                     <a href="#" class="nav-link">Schedule
                         <span class="badge badge-primary ml-1">New</span>
@@ -54,7 +55,7 @@
                     <a href="#" class="nav-link">
                         <i class="mdi mdi-bookmark-plus-outline"></i>Score</a>
                 </li>
-            </ul>
+            </ul> -->
             <ul class="navbar-nav navbar-nav-right">
                 <li class="nav-item dropdown">
                     <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#"
@@ -176,12 +177,18 @@
                 <li class="nav-item dropdown d-none d-xl-inline-block">
                     <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown"
                        aria-expanded="false">
-                        <span class="profile-text">Hello, Richard V.Welsh !</span>
+                        <span class="profile-text">Hello,
+                          <?php if(isset($session_data['name'])){
+                             echo $session_data['name'];
+                           }else{
+                             redirect('admin/signin');
+                           } ?>
+                        </span>
                         <img class="img-xs rounded-circle" src="<?php echo base_url(); ?>public/images/faces/face1.jpg"
                              alt="Profile image">
                     </a>
                     <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
-                        <a class="dropdown-item p-0">
+                        <!-- <a class="dropdown-item p-0">
                             <div class="d-flex border-bottom">
                                 <div class="py-3 px-4 d-flex align-items-center justify-content-center">
                                     <i class="mdi mdi-bookmark-plus-outline mr-0 text-gray"></i>
@@ -193,17 +200,17 @@
                                     <i class="mdi mdi-alarm-check mr-0 text-gray"></i>
                                 </div>
                             </div>
-                        </a>
+                        </a> -->
                         <a class="dropdown-item mt-2">
                             Manage Accounts
                         </a>
-                        <a class="dropdown-item">
+                        <!-- <a class="dropdown-item">
                             Change Password
                         </a>
                         <a class="dropdown-item">
                             Check Inbox
-                        </a>
-                        <a class="dropdown-item">
+                        </a> -->
+                        <a href="<?php echo base_url(); ?>admin/logout" class="dropdown-item" >
                             Sign Out
                         </a>
                     </div>
@@ -227,7 +234,13 @@
                                 <img src="<?php echo base_url(); ?>public/images/faces/face1.jpg" alt="profile image">
                             </div>
                             <div class="text-wrapper">
-                                <p class="profile-name">Richard V.Welsh</p>
+                                <p class="profile-name">
+                                  <?php if(isset($session_data['name'])){
+                                     echo $session_data['name'];
+                                   }else{
+                                     redirect('admin/signin');
+                                   } ?>
+                                </p>
                                 <div>
                                     <small class="designation text-muted">Manager</small>
                                     <span class="status-indicator online"></span>
@@ -239,11 +252,30 @@
                         </button>
                     </div>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link" href="<?php echo base_url(); ?>admin/dashboard">
                         <i class="menu-icon mdi mdi-television"></i>
                         <span class="menu-title">Dashboard</span>
                     </a>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="collapse" href="#customer" aria-expanded="false"
+                       aria-controls="ui-basic">
+                        <i class="menu-icon mdi mdi-content-copy"></i>
+                        <span class="menu-title">Customer</span>
+                        <i class="menu-arrow"></i>
+                    </a>
+                    <div class="collapse" id="customer">
+                        <ul class="nav flex-column sub-menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="<?php echo base_url(); ?>customer/customers">Customers</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                   href="<?php echo base_url(); ?>public/pages/ui-features/typography.html">Balance</a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-toggle="collapse" href="#loan" aria-expanded="false"
@@ -261,25 +293,6 @@
                             <li class="nav-item">
                                 <a class="nav-link"
                                    href="<?php echo base_url(); ?>loan/loan_types">Loan Types</a>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" data-toggle="collapse" href="#customer" aria-expanded="false"
-                       aria-controls="ui-basic">
-                        <i class="menu-icon mdi mdi-content-copy"></i>
-                        <span class="menu-title">Customer</span>
-                        <i class="menu-arrow"></i>
-                    </a>
-                    <div class="collapse" id="customer">
-                        <ul class="nav flex-column sub-menu">
-                            <li class="nav-item">
-                                <a class="nav-link" href="<?php echo base_url(); ?>customer/customers">Customers</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link"
-                                   href="<?php echo base_url(); ?>public/pages/ui-features/typography.html">Balance</a>
                             </li>
                         </ul>
                     </div>

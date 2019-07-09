@@ -20,6 +20,7 @@ class Loan extends CI_Controller
         $this->load->helper('url_helper');
         $this->load->model('loan_model');
         $this->load->helper('form');
+        $this->load->library('session');
         $this->load->model('customer_model');
     }
 

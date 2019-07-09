@@ -12,6 +12,7 @@ class Admin extends CI_Controller
         $this->load->model('admin_model');
         $this->load->helper('form');
         $this->load->library('form_validation');
+        $this->load->library('session');
 
         // $this->load->library('session');
 
@@ -57,11 +58,27 @@ class Admin extends CI_Controller
                 $data['error'] = 'Invalid Username or Password';
                 $this->load->view('admin/signin', $data);
             } else {
-                redirect('admin');
+              $session_data = array(
+              'userid' => $result['userid'],
+              'roleid' => $result['roleid'],
+                'name' => $result['name'],
+              'logged_in' => TRUE
+            );
+            $this->session->set_userdata( $session_data);
+
+            // $this->load->view('templates/header');
+            // $this->load->view('admin/dashboard');
+            // $this->load->view('templates/footer');
+            redirect('/customer/customers');
             }
 
         }
     }
+    function logout(){
+
+		    $this->session->sess_destroy();
+        redirect('admin/signin', 'refresh');
+	  }
 
     public function privilage()
     {
