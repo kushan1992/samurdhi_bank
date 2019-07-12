@@ -53,7 +53,7 @@
                             <thead>
                                 <tr>
                                     <th>Loan ID</th>
-                                    <th>Loan Name</th>
+                                    <th>Customer</th>
                                     <th>Loan Type</th>
                                     <th>Amount</th>
                                     <th>Interest</th>

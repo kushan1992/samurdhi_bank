@@ -95,4 +95,4 @@ $db['default'] = array(
 	'save_queries' => TRUE
 );
 
-$db['default']['db_debug'] = FALSE;
+// $db['default']['db_debug'] = FALSE;

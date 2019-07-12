@@ -50,7 +50,6 @@ class Loan extends CI_Controller
             'date' => date("Y-m-d H:i:s"),
             'is_delete' => 1,
         );
-
         $insert = $this->loan_model->save($data);
         echo json_encode(array("status" => TRUE, $insert));
     }

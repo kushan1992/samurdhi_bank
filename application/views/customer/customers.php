@@ -312,31 +312,42 @@
                 data: $('#customerForm').serialize(),
                 dataType: "JSON",
                 success: function(data) {
-                    if (data.status && data[0].code) {
+                    // if (data.status && data[0].code) {
 
-                        var msg_part1 = "Failed to Save Customer";
-                        if (selected_cus !== null) {
-                            msg_part1 = "Failed to Update Customer";
-                        }
+                    //     var msg_part1 = "Failed to Save Customer";
+                    //     if (selected_cus !== null) {
+                    //         msg_part1 = "Failed to Update Customer";
+                    //     }
 
-                        if (data[0].code === 1062) {
-                            swal("Oops", msg_part1 + ", Duplicate entry!", "error")
-                        } else {
-                            swal("Oops", msg_part1 + ", Something went wrong!", "error")
-                        }
-                        alert(data[0].message);
+                    //     if (data[0].code === 1062) {
+                    //         swal("Oops", msg_part1 + ", Duplicate entry!", "error")
+                    //     } else {
+                    //         swal("Oops", msg_part1 + ", Something went wrong!", "error")
+                    //     }
+                    //     alert(data[0].message);
 
+                    // } else {
+                    //     $('#customerModal').modal('hide');
+                    //     if (selected_cus === null) {
+                    //         swal("Success!", "Customer saved successfully!", "success").then((value) => {
+                    //             location.reload();
+                    //         });
+                    //     } else {
+                    //         swal("Success!", "Customer updated successfully!", "success").then((value) => {
+                    //             location.reload();
+                    //         });
+                    //     }
+                    // }
+
+                    $('#customerModal').modal('hide');
+                    if (selected_cus === null) {
+                        swal("Success!", "Customer saved successfully!", "success").then((value) => {
+                            location.reload();
+                        });
                     } else {
-                        $('#customerModal').modal('hide');
-                        if (selected_cus === null) {
-                            swal("Success!", "Customer saved successfully!", "success").then((value) => {
-                                location.reload();
-                            });
-                        } else {
-                            swal("Success!", "Customer updated successfully!", "success").then((value) => {
-                                location.reload();
-                            });
-                        }
+                        swal("Success!", "Customer updated successfully!", "success").then((value) => {
+                            location.reload();
+                        });
                     }
                 },
                 error: function(request, xhr, status) {
