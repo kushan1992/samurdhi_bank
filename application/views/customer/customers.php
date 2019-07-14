@@ -30,20 +30,20 @@
                         <!--                            <div class="dropdown">-->
                         <!--                                <button class="btn btn-primary dropdown-toggle" type="button" id="searchTypeDDBTN"-->
                         <!--                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
-                        <!--                                    --><?php //echo $search_types[0]['key'] 
+                        <!--                                    --><?php //echo $search_types[0]['key']
                                                                     ?>
                         <!--                                </button>-->
                         <!--                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">-->
-                        <!--                                    --><?php //foreach ($search_types as $value) { 
+                        <!--                                    --><?php //foreach ($search_types as $value) {
                                                                     ?>
                         <!--                                        <a class="dropdown-item"-->
-                        <!--                                           onclick="setSearchType('--><?php //echo $value['key'] 
+                        <!--                                           onclick="setSearchType('--><?php //echo $value['key']
                                                                                                     ?>
-                        <!--                                                   ','<?php //echo $value['value'] 
+                        <!--                                                   ','<?php //echo $value['value']
                                                                                     ?>//')">-->
-                        <!--                                            <?php //echo $value['key']; 
+                        <!--                                            <?php //echo $value['key'];
                                                                         ?></a>-->
-                        <!--                                    --><?php //} 
+                        <!--                                    --><?php //}
                                                                     ?>
                         <!--                                </div>-->
                         <!--                            </div>-->
@@ -114,6 +114,9 @@
                                                 <button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="editModal('<?php echo $row['idcustomer'] ?>')">
                                                     <i class="mdi mdi-pencil"></i>
                                                 </button>
+                                                <a class="btn btn-icons btn-rounded btn-secondary" onclick="window.location.href='<?php echo base_url(); ?>customer/show_customer/<?php echo $row['idcustomer'];?>';">
+                                                  <i class="mdi mdi-account-check"></i>
+                                                </a>
                                                 <!--                                            <button type="button" class="btn btn-icons btn-rounded btn-danger">-->
                                                 <!--                                                <i class="mdi mdi-delete"></i>-->
                                                 <!--                                            </button>-->
@@ -378,4 +381,6 @@
     function deleteCustomer(id) {
         alert("Delete Button clicked with id " + id);
     }
+
+
 </script>

@@ -185,4 +185,12 @@ class Loan extends CI_Controller
             echo '</tr>';
         }
     }
+    public function show_loan($idloan)
+    {
+      $data['get_loan_detail'] = $this->loan_model->get_customer_loans(array('idloan' => $idloan), $idloan);
+
+      $this->load->view('templates/header');
+      $this->load->view('loan/show_loan',$data);
+      $this->load->view('templates/footer');
+    }
 }

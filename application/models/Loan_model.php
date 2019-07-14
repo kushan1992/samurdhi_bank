@@ -29,12 +29,12 @@ class loan_model extends CI_Model
         }
     }
 
-    
+
     public function get_loans()
     {
         $this->db->select('loan.idloan, loan.idcustomer, loan.idloan_type, loan.interest, loan.duration, loan.amount, loan.status, loan.date, loan.iduser, loan.is_delete,loan_type.loan_name');
         $this->db->from('loan');
-        $this->db->join('loan_type', 'loan_type.idloan_type = loan.idloan_type'); 
+        $this->db->join('loan_type', 'loan_type.idloan_type = loan.idloan_type');
         $result = $this->db->get();
 
         // $result = $this->db->get($this->table1);
@@ -75,7 +75,7 @@ class loan_model extends CI_Model
         return $query->result_array();
     }
 
-    
+
     public function get_loan_types()
     {
         $result = $this->db->get($this->table2);
@@ -116,4 +116,19 @@ class loan_model extends CI_Model
         $query  =   $this->db->get($this->table2);
         return $query->result_array();
     }
+    public function get_customer_loans($id)
+    {
+      $this->db->select('loan.idloan, loan.idcustomer, loan.idloan_type, loan.interest, loan.duration, loan.amount, loan.status, loan.date, loan.iduser, loan.is_delete,loan_type.loan_name');
+      $this->db->from('loan');
+      $this->db->where($id);
+      $this->db->join('loan_type', 'loan_type.idloan_type = loan.idloan_type');
+      $result = $this->db->get();
+
+      if ($result->num_rows() > 0) {
+          return $result->result_array();
+      } else {
+          return false;
+      }
+    }
+
 }

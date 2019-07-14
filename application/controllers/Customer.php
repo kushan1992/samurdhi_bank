@@ -11,6 +11,7 @@ class Customer extends CI_Controller
 
         $this->load->helper('url_helper');
         $this->load->model('customer_model');
+        $this->load->model('loan_model');
         $this->load->helper('form');
         $this->load->library('session');
 
@@ -100,11 +101,18 @@ class Customer extends CI_Controller
 
     }
 
-    public
-    function get_customer($id)
+    public function get_customer($id)
     {
         $data = $this->customer_model->get_customer_by_id(array('idcustomer' => $id), $id);
         echo json_encode($data);
+    }
+    public function show_customer($id){
+      $data['get_customer'] = $this->customer_model->get_customer(array('idcustomer' => $id), $id);
+      $data['get_customer_loans'] = $this->loan_model->get_customer_loans(array('idcustomer' => $id), $id);
+      
+      $this->load->view('templates/header');
+      $this->load->view('customer/show_customer',$data);
+      $this->load->view('templates/footer');
     }
 
 

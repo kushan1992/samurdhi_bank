@@ -59,4 +59,14 @@ class customer_model extends CI_Model
         $query  =   $this->db->get($this->table);
         return $query->result_array();
     }
+    public function get_customer($where,$id){
+      $this->db->from($this->table);
+      $this->db->where($where);
+      $query = $this->db->get();
+      if ($query->num_rows() > 0) {
+          return $query->result_array();
+      } else {
+          return false;
+      }
+    }
 }
