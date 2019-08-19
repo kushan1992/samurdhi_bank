@@ -12,6 +12,7 @@ class loan_model extends CI_Model
 {
     var $table1 = 'loan';
     var $table2 = 'loan_type';
+    var $table3 = 'payment_schedule';
 
     public function __construct()
     {
@@ -46,21 +47,37 @@ class loan_model extends CI_Model
 
     }
 
-
-    public function get_loan_by_id( $where, $id)
+    public function round_up($value, $places)
     {
-        $this->db->from($this->table1);
-        $this->db->where($where);
-        $query = $this->db->get();
-
-        return $query->row();
+        $mult = pow(10, abs($places));
+        return $places < 0 ?
+            ceil($value / $mult) * $mult :
+            ceil($value * $mult) / $mult;
     }
-
-    public function save($data)
+    public function save($data, $data_payment_schedule)
     {
         $this->db->insert($this->table1, $data);
-        return $this->db->insert_id();
+        $id = $this->db->insert_id();
+
+        foreach ($data_payment_schedule as $ps) {
+//            var_dump($id);
+//            var_dump($ps);
+            $ps['idloan'] = $id;
+//            var_dump($ps);
+//            array_unshift($ps, array('idloan'=>$id));
+        }
+//        var_dump($data_payment_schedule);
+
+//        $this->db->insert_batch($this->table3, $data_payment_schedule);
+        return $this->db->insert_batch($this->table3, $data_payment_schedule);
+//        return $id;
     }
+
+//    public function save($data)
+//    {
+//        $this->db->insert($this->table1, $data);
+//        return $this->db->insert_id();
+//    }
 
     public function update($where, $data)
     {
@@ -71,8 +88,17 @@ class loan_model extends CI_Model
     public function search($where)
     {
         $this->db->like($where);
-        $query  =   $this->db->get($this->table1);
+        $query = $this->db->get($this->table1);
         return $query->result_array();
+    }
+
+    public function get_loan_by_id($where)
+    {
+        $this->db->from($this->table1);
+        $this->db->where($where);
+        $query = $this->db->get();
+
+        return $query->row();
     }
 
 
@@ -95,7 +121,7 @@ class loan_model extends CI_Model
         return $this->db->insert_id();
     }
 
-    public function get_loan_type_by_id( $where, $id)
+    public function get_loan_type_by_id($where)
     {
         $this->db->from($this->table2);
         $this->db->where($where);
@@ -113,22 +139,26 @@ class loan_model extends CI_Model
     public function search_loan_type($where)
     {
         $this->db->like($where);
-        $query  =   $this->db->get($this->table2);
+        $query = $this->db->get($this->table2);
         return $query->result_array();
     }
-    public function get_customer_loans($id)
-    {
-      $this->db->select('loan.idloan, loan.idcustomer, loan.idloan_type, loan.interest, loan.duration, loan.amount, loan.status, loan.date, loan.iduser, loan.is_delete,loan_type.loan_name');
-      $this->db->from('loan');
-      $this->db->where($id);
-      $this->db->join('loan_type', 'loan_type.idloan_type = loan.idloan_type');
-      $result = $this->db->get();
 
-      if ($result->num_rows() > 0) {
-          return $result->result_array();
-      } else {
-          return false;
-      }
+    public function get_customer_loans($where)
+    {
+        $this->db->select(
+            'loan.idloan, loan.idcustomer, loan.idloan_type, loan.interest, loan.duration, loan.amount, 
+            loan.status, loan.date, loan.iduser, loan.is_delete, loan_type.idloan_type, loan_type.loan_name'
+        );
+        $this->db->from('loan');
+        $this->db->where($where);
+        $this->db->join('loan_type', 'loan_type.idloan_type = loan.idloan_type');
+        $result = $this->db->get();
+
+        if ($result->num_rows() > 0) {
+            return $result->result_array();
+        } else {
+            return false;
+        }
     }
 
 }

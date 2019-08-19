@@ -32,7 +32,7 @@ class user_model extends CI_Model
     }
 
 
-    public function get_customer_by_id( $where, $id)
+    public function get_customer_by_id( $where)
     {
         $this->db->from($this->table);
         $this->db->where($where);

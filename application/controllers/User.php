@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Customer extends CI_Controller
+class User extends CI_Controller
 {
 
     public function __construct()
@@ -10,53 +10,30 @@ class Customer extends CI_Controller
 
 
         $this->load->helper('url_helper');
-        $this->load->model('customer_model');
-        $this->load->model('loan_model');
+        $this->load->model('user_model');
         $this->load->helper('form');
-        $this->load->library('session');
 
     }
 
 
-
-//    ------------------------------ Views -----------------------------------
-
-    public function customers()
+    public function users()
     {
 
-        $data['get_customers'] = $this->customer_model->get_customers();
+        $data['get_users'] = $this->user_model->get_users();
         $data['rowCount'] = Array(10, 20, 50, 100);
+
+//        $data['search_types'] = Array(array("key" => "Member No", "value" => "memnumber"), array("key" => "Name", "value" => "name"), array("key" => "NIC", "value" => "nic"), array("key" => "Occupation", "value" => "occupation"), array("key" => "Status", "value" => "status"));
+
         $this->load->view('templates/header');
-        $this->load->view('customer/customers', $data);
+        $this->load->view('user/users', $data);
         $this->load->view('templates/footer');
 
     }
-
-    public function show_customer($id)
-    {
-
-        $data['get_customer'] = $this->customer_model->get_customer(array('idcustomer' => $id));
-        $data['get_customer_loans'] = $this->loan_model->get_customer_loans(array('idcustomer' => $id));
-
-        $this->load->view('templates/header');
-        $this->load->view('customer/show_customer', $data);
-        $this->load->view('templates/footer');
-
-    }
-
-//    ------------------------------ Views -----------------------------------
-
-
-
-
-
-
 
     public function cus_create()
     {
 
         $data = array(
-            'memnumber' => $this->input->post('cus_number'),
             'name' => $this->input->post('cus_name'),
             'nic' => $this->input->post('cus_nic'),
             'address' => $this->input->post('cus_address'),
@@ -65,14 +42,21 @@ class Customer extends CI_Controller
             'status' => $this->input->post('cus_status'),
             'is_delete' => 1,
         );
-        $insert = $this->customer_model->save($data);
+
+        $insert = $this->user_model->save($data);
         echo json_encode(array("status" => TRUE, $insert));
 
     }
 
+
+    public function create_user()
+    {
+        $this->admin_model->create_user();
+        redirect('/admin/create', 'refresh');
+    }
+
     public function cus_update($id)
     {
-
         $data = array(
             'memnumber' => $this->input->post('cus_number'),
             'name' => $this->input->post('cus_name'),
@@ -83,9 +67,8 @@ class Customer extends CI_Controller
             'is_delete' => 1,
         );
 
-        $this->customer_model->update(array('idcustomer' => $id), $data);
+        $this->user_model->update(array('iduser' => $id), $data);
         echo json_encode(array("status" => TRUE));
-
     }
 
 
@@ -93,19 +76,19 @@ class Customer extends CI_Controller
     {
 
 
-        $data = $this->customer_model->search(array($_POST['searchType'] => $_POST['text']));
+        $data = $this->user_model->search(array($_POST['searchType'] => $_POST['text']));
+//        echo json_encode($data);
+//
         if (!empty($data)) {
             foreach ($data as $row) {
-                if (!empty($row['idcustomer'])) {
-                    echo '<tr id="' . $row['idcustomer'] . '">';
-                    echo '<td>' . $row['memnumber'] . '</td>';
+                if (!empty($row['iduser'])) {
+                    echo '<tr id="' . $row['iduser'] . '">';
                     echo '<td>' . $row['name'] . '</td>';
-                    echo '<td>' . $row['nic'] . '</td>';
-                    echo '<td>' . $row['occupation'] . '</td>';
+                    echo '<td>' . $row['idrole'] . '</td>';
                     echo '<td>' . $row['date'] . '</td>';
                     echo '<td>' . $row['status'] . '</td>';
                     echo '<td>';
-                    echo '<button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="editModal(' . $row['idcustomer'] . ')">';
+                    echo '<button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="editModal(' . $row['iduser'] . ')">';
                     echo '<i class="mdi mdi-pencil"></i>';
                     echo '</button>';
 //                    echo '<button type="button" class="btn btn-icons btn-rounded btn-danger">';
@@ -123,12 +106,12 @@ class Customer extends CI_Controller
 
     }
 
-    public function get_customer($id)
+    public
+    function get_user($id)
     {
-
-        $data = $this->customer_model->get_customer_by_id(array('idcustomer' => $id));
+        $data = $this->user_model->get_user_by_id(array('iduser' => $id), $id);
         echo json_encode($data);
-
     }
+
 
 }

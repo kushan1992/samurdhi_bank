@@ -19,14 +19,17 @@ class Loan extends CI_Controller
 
         $this->load->helper('url_helper');
         $this->load->model('loan_model');
+        $this->load->model('customer_model');
         $this->load->helper('form');
         $this->load->library('session');
-        $this->load->model('customer_model');
     }
 
 
+//    ------------------------------ Views -----------------------------------
+
     public function loans()
     {
+
         $data['get_loans'] = $this->loan_model->get_loans();
         $data['get_loanTypes'] = $this->loan_model->get_loan_types();
         $data['rowCount'] = array(10, 20, 50, 100);
@@ -34,7 +37,20 @@ class Loan extends CI_Controller
         $this->load->view('templates/header');
         $this->load->view('loan/loans', $data);
         $this->load->view('templates/footer');
+
     }
+
+    public function show_loan($id)
+    {
+        $data['get_loan_detail'] = $this->loan_model->get_customer_loans(array('idloan' => $id));
+
+        $this->load->view('templates/header');
+        $this->load->view('loan/show_loan', $data);
+        $this->load->view('templates/footer');
+    }
+
+//    ------------------------------ Views -----------------------------------
+
 
     public function loan_create()
     {
@@ -50,12 +66,79 @@ class Loan extends CI_Controller
             'date' => date("Y-m-d H:i:s"),
             'is_delete' => 1,
         );
-        $insert = $this->loan_model->save($data);
+
+        $amount = $this->input->post('loan_amount');
+        $interest = $this->input->post('loan_interest');
+        $duration = $this->input->post('loan_duration');
+
+        $installment = $this->loan_model->round_up((($amount + ($amount * ($interest / 100))) / $duration), 2);
+//        echo $installment;
+
+        $data_payment_schedule = array();
+
+        $date = date("d");
+        $month = date("m");
+        $year = date("Y");
+
+        foreach (range(1, $duration) as $i) {
+
+            $d = new DateTime($year . '-' . $month . '-' . $date);
+            $installment_date = '';
+
+            if ($d->format('d') !== $date) {
+
+                $td = new DateTime($year . '-' . $d->format('m'). '-'.$date);
+                $installment_date = $td->format('Y-m-d H:i:s');
+//                echo '------------------------------------------------ ' . $td->format('Y - m - d'), "\n<br>";
+                $month = $td->format('m');
+                $year = $td->format('Y');
+
+            } else {
+
+                $d->modify('next month');
+
+                if ($d->format('d') !== $date) {
+
+                    $td = new DateTime($year . '-' . $month . '-01');
+                    $td->modify('last day of next month');
+                    $installment_date = $td->format('Y-m-d H:i:s');
+//                    echo '------------------------------------------------ ' . $td->format('Y - m - d'), "\n<br>";
+                    $month = $td->format('m');
+                    $year = $td->format('Y');
+
+                } else {
+
+                    $installment_date = $d->format('Y-m-d H:i:s');
+//                    echo '------------------------------------------------ ' . $d->format('Y - m - d'), "\n<br>";
+                    $month = $d->format('m');
+                    $year = $d->format('Y');
+
+                }
+            }
+
+//            echo $installment_date;
+
+            array_push($data_payment_schedule, array(
+                'date' => date('Y-m-d H:i:s', strtotime($installment_date)),
+                'installment_balance' => $installment,
+                'status' => false,
+                'fine_status' => false,
+                'is_delete' => false,
+            ));
+        }
+
+
+        $insert = $this->loan_model->save($data, $data_payment_schedule);
+
+
         echo json_encode(array("status" => TRUE, $insert));
+
     }
+
 
     public function loan_update($id)
     {
+
         $data = array(
             'idloan_type' => $this->input->post('loan_type'),
             'amount' => $this->input->post('loan_amount'),
@@ -67,6 +150,7 @@ class Loan extends CI_Controller
 
         $this->loan_model->update(array('idloan' => $id), $data);
         echo json_encode(array("status" => TRUE));
+
     }
 
 
@@ -103,23 +187,27 @@ class Loan extends CI_Controller
             echo '<td colspan="7"> <h4 class="text-danger">No Results Found!</h4></td>';
             echo '</tr>';
         }
+
     }
 
     public function get_loan($id)
     {
-        $data = $this->loan_model->get_loan_by_id(array('idloan' => $id), $id);
-        echo json_encode($data);
-    }
 
+        $data = $this->loan_model->get_loan_by_id(array('idloan' => $id));
+        echo json_encode($data);
+
+    }
 
 
     public function loan_types()
     {
+
         $data['get_loanTypes'] = $this->loan_model->get_loan_types();
         $data['rowCount'] = array(10, 20, 50, 100);
         $this->load->view('templates/header');
         $this->load->view('loan/loan_types', $data);
         $this->load->view('templates/footer');
+
     }
 
 
@@ -136,17 +224,21 @@ class Loan extends CI_Controller
 
         $insert = $this->loan_model->save_loan_type($data);
         echo json_encode(array("status" => TRUE, $insert));
+
     }
 
 
     public function get_loan_type($id)
     {
-        $data = $this->loan_model->get_loan_type_by_id(array('idloan_type' => $id), $id);
+
+        $data = $this->loan_model->get_loan_type_by_id(array('idloan_type' => $id));
         echo json_encode($data);
+
     }
 
     public function loan_type_update($id)
     {
+
         $data = array(
             'loan_name' => $this->input->post('loan_type_name'),
             'status' => $this->input->post('loan_type_status'),
@@ -155,6 +247,7 @@ class Loan extends CI_Controller
 
         $this->loan_model->update_loan_type(array('idloan_type' => $id), $data);
         echo json_encode(array("status" => TRUE));
+
     }
 
 
@@ -184,13 +277,6 @@ class Loan extends CI_Controller
             echo '<td colspan="7"> <h4 class="text-danger">No Results Found!</h4></td>';
             echo '</tr>';
         }
-    }
-    public function show_loan($idloan)
-    {
-      $data['get_loan_detail'] = $this->loan_model->get_customer_loans(array('idloan' => $idloan), $idloan);
 
-      $this->load->view('templates/header');
-      $this->load->view('loan/show_loan',$data);
-      $this->load->view('templates/footer');
     }
 }

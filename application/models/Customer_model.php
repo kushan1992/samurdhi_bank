@@ -28,17 +28,18 @@ class customer_model extends CI_Model
         } else {
             return false;
         }
-
     }
 
-
-    public function get_customer_by_id( $where, $id)
+    public function get_customer($where)
     {
         $this->db->from($this->table);
         $this->db->where($where);
         $query = $this->db->get();
-
-        return $query->row();
+        if ($query->num_rows() > 0) {
+            return $query->result_array();
+        } else {
+            return false;
+        }
     }
 
     public function save($data)
@@ -56,17 +57,16 @@ class customer_model extends CI_Model
     public function search($where)
     {
         $this->db->like($where);
-        $query  =   $this->db->get($this->table);
+        $query = $this->db->get($this->table);
         return $query->result_array();
     }
-    public function get_customer($where,$id){
-      $this->db->from($this->table);
-      $this->db->where($where);
-      $query = $this->db->get();
-      if ($query->num_rows() > 0) {
-          return $query->result_array();
-      } else {
-          return false;
-      }
+
+    public function get_customer_by_id($where)
+    {
+        $this->db->from($this->table);
+        $this->db->where($where);
+        $query = $this->db->get();
+
+        return $query->row();
     }
 }
