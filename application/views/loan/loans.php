@@ -311,11 +311,11 @@
                         $('#loanModal').modal('hide');
                         if (selected_loan === null) {
                             swal("Success!", "Loan saved successfully!", "success").then((value) => {
-                                // location.reload();
+                                location.reload();
                             });
                         } else {
                             swal("Success!", "Loan updated successfully!", "success").then((value) => {
-                                // location.reload();
+                                location.reload();
                             });
                         }
                     }

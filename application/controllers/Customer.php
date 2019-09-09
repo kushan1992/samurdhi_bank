@@ -63,7 +63,7 @@ class Customer extends CI_Controller
             'occupation' => $this->input->post('cus_occupation'),
             'date' => date("Y-m-d H:i:s"),
             'status' => $this->input->post('cus_status'),
-            'is_delete' => 1,
+            'is_delete' => false,
         );
         $insert = $this->customer_model->save($data);
         echo json_encode(array("status" => TRUE, $insert));
@@ -80,7 +80,7 @@ class Customer extends CI_Controller
             'address' => $this->input->post('cus_address'),
             'occupation' => $this->input->post('cus_occupation'),
             'status' => $this->input->post('cus_status'),
-            'is_delete' => 1,
+            'is_delete' => false,
         );
 
         $this->customer_model->update(array('idcustomer' => $id), $data);

@@ -42,7 +42,10 @@ class Loan extends CI_Controller
 
     public function show_loan($id)
     {
+        $data['loan_id'] = $id;
         $data['get_loan_detail'] = $this->loan_model->get_customer_loans(array('idloan' => $id));
+        $data['get_loan_schedule_detail'] = $this->loan_model->get_customer_loan_schedule(array('idloan' => $id));
+        $data['rowCount'] = array(10, 20, 50, 100);
 
         $this->load->view('templates/header');
         $this->load->view('loan/show_loan', $data);
@@ -55,24 +58,26 @@ class Loan extends CI_Controller
     public function loan_create()
     {
 
-        $data = array(
-            'idcustomer' => $this->input->post('loan_cid'),
-            'idloan_type' => $this->input->post('loan_type'),
-            'amount' => $this->input->post('loan_amount'),
-            'interest' => $this->input->post('loan_interest'),
-            'duration' => $this->input->post('loan_duration'),
-            'iduser' => '1',
-            'status' => $this->input->post('loan_status'),
-            'date' => date("Y-m-d H:i:s"),
-            'is_delete' => 1,
-        );
 
         $amount = $this->input->post('loan_amount');
         $interest = $this->input->post('loan_interest');
         $duration = $this->input->post('loan_duration');
 
         $installment = $this->loan_model->round_up((($amount + ($amount * ($interest / 100))) / $duration), 2);
-//        echo $installment;
+
+        $data = array(
+            'idcustomer' => $this->input->post('loan_cid'),
+            'idloan_type' => $this->input->post('loan_type'),
+            'amount' => $this->input->post('loan_amount'),
+            'installment' => $installment,
+            'interest' => $this->input->post('loan_interest'),
+            'duration' => $this->input->post('loan_duration'),
+            'iduser' => '1',
+            'status' => $this->input->post('loan_status'),
+            'date' => date("Y-m-d H:i:s"),
+            'is_delete' => false,
+        );
+
 
         $data_payment_schedule = array();
 
@@ -87,7 +92,7 @@ class Loan extends CI_Controller
 
             if ($d->format('d') !== $date) {
 
-                $td = new DateTime($year . '-' . $d->format('m'). '-'.$date);
+                $td = new DateTime($year . '-' . $d->format('m') . '-' . $date);
                 $installment_date = $td->format('Y-m-d H:i:s');
 //                echo '------------------------------------------------ ' . $td->format('Y - m - d'), "\n<br>";
                 $month = $td->format('m');
@@ -145,7 +150,7 @@ class Loan extends CI_Controller
             'interest' => $this->input->post('loan_interest'),
             'duration' => $this->input->post('loan_duration'),
             'status' => $this->input->post('loan_status'),
-            'is_delete' => 1,
+            'is_delete' => false,
         );
 
         $this->loan_model->update(array('idloan' => $id), $data);
@@ -219,7 +224,7 @@ class Loan extends CI_Controller
             // 'iduser' => '1',
             'status' => $this->input->post('loan_type_status'),
             // 'date' => date("Y-m-d H:i:s"),
-            'is_delete' => 1,
+            'is_delete' => false,
         );
 
         $insert = $this->loan_model->save_loan_type($data);
@@ -242,7 +247,7 @@ class Loan extends CI_Controller
         $data = array(
             'loan_name' => $this->input->post('loan_type_name'),
             'status' => $this->input->post('loan_type_status'),
-            'is_delete' => 1,
+            'is_delete' => false,
         );
 
         $this->loan_model->update_loan_type(array('idloan_type' => $id), $data);

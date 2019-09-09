@@ -54,30 +54,20 @@ class loan_model extends CI_Model
             ceil($value / $mult) * $mult :
             ceil($value * $mult) / $mult;
     }
+
     public function save($data, $data_payment_schedule)
     {
         $this->db->insert($this->table1, $data);
         $id = $this->db->insert_id();
 
         foreach ($data_payment_schedule as $ps) {
-//            var_dump($id);
-//            var_dump($ps);
             $ps['idloan'] = $id;
-//            var_dump($ps);
-//            array_unshift($ps, array('idloan'=>$id));
+            $this->db->insert($this->table3, $ps);
         }
-//        var_dump($data_payment_schedule);
 
 //        $this->db->insert_batch($this->table3, $data_payment_schedule);
-        return $this->db->insert_batch($this->table3, $data_payment_schedule);
-//        return $id;
+        return $id;
     }
-
-//    public function save($data)
-//    {
-//        $this->db->insert($this->table1, $data);
-//        return $this->db->insert_id();
-//    }
 
     public function update($where, $data)
     {
@@ -146,7 +136,7 @@ class loan_model extends CI_Model
     public function get_customer_loans($where)
     {
         $this->db->select(
-            'loan.idloan, loan.idcustomer, loan.idloan_type, loan.interest, loan.duration, loan.amount, 
+            'loan.idloan, loan.idcustomer, loan.idloan_type, loan.interest, loan.duration, loan.amount, loan.installment, 
             loan.status, loan.date, loan.iduser, loan.is_delete, loan_type.idloan_type, loan_type.loan_name'
         );
         $this->db->from('loan');
@@ -159,6 +149,12 @@ class loan_model extends CI_Model
         } else {
             return false;
         }
+    }
+    public function get_customer_loan_schedule($where)
+    {
+        $this->db->like($where);
+        $query = $this->db->get($this->table3);
+        return $query->result_array();
     }
 
 }

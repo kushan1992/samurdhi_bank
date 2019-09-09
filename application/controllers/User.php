@@ -40,7 +40,7 @@ class User extends CI_Controller
             'occupation' => $this->input->post('cus_occupation'),
             'date' => date("Y-m-d H:i:s"),
             'status' => $this->input->post('cus_status'),
-            'is_delete' => 1,
+            'is_delete' => false,
         );
 
         $insert = $this->user_model->save($data);
@@ -64,7 +64,7 @@ class User extends CI_Controller
             'address' => $this->input->post('cus_address'),
             'occupation' => $this->input->post('cus_occupation'),
             'status' => $this->input->post('cus_status'),
-            'is_delete' => 1,
+            'is_delete' => false,
         );
 
         $this->user_model->update(array('iduser' => $id), $data);
