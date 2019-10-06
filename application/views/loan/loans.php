@@ -293,8 +293,6 @@
 
     function save() {
         var url;
-        // swal("Oops", "Failed to Save Loan, Something went wrong!", "error");
-
         let formStatus = checkInputs();
 
         if (formStatus) {
