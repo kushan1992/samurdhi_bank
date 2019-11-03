@@ -45,6 +45,7 @@ class Loan extends CI_Controller
         $data['get_loan_detail'] = $this->loan_model->get_customer_loans(array('idloan' => $id));
         $data['get_loan_schedule_detail'] = $this->loan_model->get_loan_schedule(array('idloan' => $id));
         $data['get_last_loan_payment_log'] = $this->loan_model->get_last_loan_payment_log(array('idloan' => $id));
+        $data['get_loan_payment_log'] = $this->loan_model->get_loan_payment_log(array('idloan' => $id));
         $data['rowCount'] = array(10, 20, 50, 100);
 
         $this->load->view('templates/header');
@@ -63,10 +64,11 @@ class Loan extends CI_Controller
 
         if (!empty($customer) && !empty($customer[0]) && !empty($customer[0]['idcustomer'])) {
 
-            $currentDate = date("Y-m-d H:i:s");
-            if ($this->input->post('loan_date')) {
-                $currentDate = new DateTime($this->input->post('loan_date'));
-            }
+            //     // $currentDate = date("Y-m-d H:i:s");
+            $currentDate = new DateTime(date('Y-m-d H:i:s'));
+            //     // if ($this->input->post('loan_date')) {
+            //     //     $currentDate = new DateTime($this->input->post('loan_date'));
+            //     // }
 
             $amount = $this->input->post('loan_amount');
             $duration = $this->input->post('loan_duration');
@@ -81,7 +83,8 @@ class Loan extends CI_Controller
                 'interest' => $this->input->post('loan_interest'),
                 'duration' => $this->input->post('loan_duration'),
                 'iduser' => '1',
-                'status' => $this->input->post('loan_status'),
+                'status' => "Active",
+                // 'status' => $this->input->post('loan_status'),
                 'date' => $currentDate->format('Y-m-d H:i:s'),
                 'is_delete' => false,
             );
@@ -127,7 +130,7 @@ class Loan extends CI_Controller
                     }
                 }
 
-                //            echo $installment_date;
+                //    echo $installment_date;
 
                 array_push($data_payment_schedule, array(
                     'date' => date('Y-m-d H:i:s', strtotime($installment_date)),
@@ -143,6 +146,8 @@ class Loan extends CI_Controller
 
 
             echo json_encode(array("status" => TRUE, $insert));
+        } else {
+            echo json_encode(array("status" => FALSE, "error" => "Invalid Member ID"));
         }
     }
 

@@ -277,7 +277,7 @@
         $('#customerModal').modal('show');
 
         $.ajax({
-            url: "<?php echo site_url('customer/get_customer') ?>/" + id,
+            url: "<?php echo site_url('customer/get_customer_by_id') ?>/" + id,
             type: "GET",
             dataType: "JSON",
             success: function(data) {

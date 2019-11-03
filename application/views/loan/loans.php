@@ -110,6 +110,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 
 
@@ -169,19 +170,15 @@
                         <input type="text" class="form-control" name="loan_duration" placeholder="Duration">
                         <p id="error_loan_duration" class="text-warning">Loan duration field is required!</p>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Loan Status</label>
                         <select class="form-control" name="loan_status">
-                            <option value="Preparing">Preparing</option>
-                            <option value="Ongoing">Ongoing</option>
-                            <option value="Canceled">Canceled</option>
-                            <option value="Finished">Finished</option>
+                            <option value="Active">Active</option>
+                            <option value="Belated">Belated</option>
+                            <option value="Bad Debt">Bad Debt</option>
+                            <option value="Completed">Completed</option>
                         </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Date</label>
-                        <input type="text" class="form-control" name="loan_date" placeholder="Date">
-                    </div>
+                    </div> -->
                     <div class="text-right mt-5">
                         <button type="button" class="btn left btn-success mr-2" onclick="save()" id="loanFormSubmitBtn">Submit</button>
                         <button type="button" class="btn left btn-danger" data-dismiss="modal">Cancel</button>
@@ -282,7 +279,7 @@
                 $('[name="loan_amount"]').val(data.amount);
                 $('[name="loan_interest"]').val(data.interest);
                 $('[name="loan_duration"]').val(data.duration);
-                $('[name="loan_status"]').val(data.status);
+                // $('[name="loan_status"]').val(data.status);
 
             },
             error: function(jqXHR, textStatus, errorThrown) {
@@ -320,6 +317,8 @@
                                 location.reload();
                             });
                         }
+                    } else {
+                        swal("Oops", "Failed to Save Loan, "+data.error+"!", "error")
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {

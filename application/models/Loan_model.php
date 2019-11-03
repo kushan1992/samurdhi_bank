@@ -168,6 +168,15 @@ class loan_model extends CI_Model
         return $query->result_array();
     }
 
+    public function get_loan_payment_log($where)
+    {
+        $this->db->where($where);
+        $this->db->order_by('date',"desc");
+        // $this->db->limit(1);
+        $query = $this->db->get($this->table4);
+        return $query->result_array();
+    }
+
     
     public function save_payment_log($data)
     {

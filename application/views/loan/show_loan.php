@@ -96,56 +96,108 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table id="my-table" class="table table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Loan ID</th>
-                                        <!--                                    <th>Installment Balance</th>-->
-                                        <th>Date</th>
-                                        <th>Status</th>
-                                        <th>Edit/Delete</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php
-                                    if (!empty($get_loan_schedule_detail)) {
-                                        foreach ($get_loan_schedule_detail as $row) {
-                                            ?>
-                                            <tr id="<?php if (!empty($row['idpayment_schedule'])) {
-                                                                echo $row['idpayment_schedule'];
-                                                            } ?>">
-                                                <td><?php if (!empty($row['idpayment_schedule'])) {
-                                                                echo $row['idpayment_schedule'];
-                                                            } ?></td>
-                                                <!--                                            <td>-->
-                                                <!--                                                --><?php //if (!empty($row['installment_balance'])) {
-                                                                                                                //                                                    
-                                                                                                                ?>
-                                                <!--                                                    Rs.--><?php //echo number_format($row['installment_balance'], 2, ',', '.') 
-                                                                                                                        ?>
-                                                <!--                                                    --><?php
-                                                                                                                    //                                                } 
-                                                                                                                    ?>
-                                                <!--                                            </td>-->
-                                                <td><?php if (!empty($row['date'])) {
-                                                                echo $row['date'];
-                                                            } ?></td>
-                                                <td><?php if (isset($row['status'])) {
-                                                                echo $row['status'] ? 'Paid' : 'Unpaid';
-                                                            } ?></td>
-                                                <td>
-                                                    <button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="editModal('<?php echo $row['idloan'] ?>')">
-                                                        <i class="mdi mdi-pencil"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
 
-                                    <?php
-                                        }
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
+                            <?php
+                            $show_payment_schedule = false;
+                            if ($show_payment_schedule) {
+                                ?>
+
+
+                                <table id="my-table" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Loan ID</th>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Edit/Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            if (!empty($get_loan_schedule_detail)) {
+                                                foreach ($get_loan_schedule_detail as $row) {
+                                                    ?>
+                                                <tr id="<?php if (!empty($row['idpayment_schedule'])) {
+                                                                        echo $row['idpayment_schedule'];
+                                                                    } ?>">
+                                                    <td><?php if (!empty($row['idpayment_schedule'])) {
+                                                                        echo $row['idpayment_schedule'];
+                                                                    } ?></td>
+                                                    <td><?php if (!empty($row['date'])) {
+                                                                        echo $row['date'];
+                                                                    } ?></td>
+                                                    <td><?php if (isset($row['status'])) {
+                                                                        echo $row['status'] ? 'Paid' : 'Unpaid';
+                                                                    } ?></td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="editModal('<?php echo $row['idloan'] ?>')">
+                                                            <i class="mdi mdi-pencil"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+
+                                        <?php
+                                                }
+                                            }
+                                            ?>
+                                    </tbody>
+                                </table>
+
+                            <?php
+                            } else {
+                                ?>
+                                <table id="my-table" class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>Log ID</th>
+                                            <th>Date</th>
+                                            <th>Premium</th>
+                                            <th>Interest</th>
+                                            <th>Penalty</th>
+                                            <th>Edit/Delete</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            if (!empty($get_loan_payment_log)) {
+                                                foreach ($get_loan_payment_log as $row) {
+                                                    ?>
+                                                <tr id="<?php if (!empty($row['idpayment_log'])) {
+                                                                        echo $row['idpayment_log'];
+                                                                    } ?>">
+                                                    <td><?php if (!empty($row['idpayment_log'])) {
+                                                                        echo $row['idpayment_log'];
+                                                                    } ?></td>
+                                                    <td><?php if (!empty($row['date'])) {
+                                                                        echo $row['date'];
+                                                                    } ?></td>
+                                                    <td><?php if (!empty($row['premium'])) {
+                                                                        echo 'Rs.' . number_format($row['premium'], 2, '.', ',');
+                                                                    } ?></td>
+                                                    <td><?php if (!empty($row['interest'])) {
+                                                                        echo 'Rs.' . number_format($row['interest'], 2, '.', ',');
+                                                                    } ?></td>
+                                                    <td><?php if (!empty($row['penalty'])) {
+                                                                        echo 'Rs.' . number_format($row['penalty'], 2, '.', ',');
+                                                                    } else {
+                                                                        echo 'Rs.0.00';
+                                                                    } ?></td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="editModal('<?php echo $row['idloan'] ?>')">
+                                                            <i class="mdi mdi-pencil"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                        <?php
+                                                }
+                                            }
+                                            ?>
+                                    </tbody>
+                                </table>
+                            <?php
+                            } ?>
+
+
                         </div>
                     </div>
                 </div>
@@ -244,7 +296,7 @@
         }
     });
 
-    function searchLoans() {
+    function searchLoans(id) {
         let v = $('#searchLoan').val();
         if (v === "") {
             window.location.href = id
@@ -308,7 +360,8 @@
         let payment_schedule = <?php echo json_encode($get_loan_schedule_detail); ?>;
         let payment_schedule2 = [];
 
-        let last_payment_log = <?php echo json_encode($get_last_loan_payment_log); ?>;
+        let get_loan_payment_log = <?php echo json_encode($get_loan_payment_log); ?>;
+        let last_payment_log = <?php echo json_encode($get_loan_payment_log[0]); ?>;
         let last_date;
 
         if (last_payment_log.length === 1) {
@@ -354,7 +407,9 @@
 
                         // console.log('--------------------------------- date - ', date);
 
-                        payment_schedule2.push(item);
+                        if (item.status === "0") {
+                            payment_schedule2.push(item);
+                        }
 
                         amount_of_payable_installments += +item.installment_balance;
                         if (item.fine_status === '0') {
@@ -375,6 +430,9 @@
                 if (payment_schedule2.length > 0) {
 
                     let last_date = new Date(payment_schedule2[0].date);
+                    console.log("last date", last_date);
+                    console.log("payment_schedule2", payment_schedule2);
+
 
                     if (payment_schedule2.length == 1) {
 
@@ -382,6 +440,11 @@
                             late_installments = [];
                             amount_of_late_installments = 0;
                         }
+
+                        // if (((currentDate - last_date) / (1000 * 60 * 60 * 24)) < number_of_days_given_for_relief_period) {
+                        //     late_installments = [];
+                        //     amount_of_late_installments = 0;
+                        // }
 
                     } else {
 

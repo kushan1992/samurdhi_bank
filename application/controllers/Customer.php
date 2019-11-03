@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class Customer extends CI_Controller
 {
@@ -14,22 +14,20 @@ class Customer extends CI_Controller
         $this->load->model('loan_model');
         $this->load->helper('form');
         $this->load->library('session');
-
     }
 
 
 
-//    ------------------------------ Views -----------------------------------
+    //    ------------------------------ Views -----------------------------------
 
     public function customers()
     {
 
         $data['get_customers'] = $this->customer_model->get_customers();
-        $data['rowCount'] = Array(10, 20, 50, 100);
+        $data['rowCount'] = array(10, 20, 50, 100);
         $this->load->view('templates/header');
         $this->load->view('customer/customers', $data);
         $this->load->view('templates/footer');
-
     }
 
     public function show_customer($id)
@@ -41,10 +39,9 @@ class Customer extends CI_Controller
         $this->load->view('templates/header');
         $this->load->view('customer/show_customer', $data);
         $this->load->view('templates/footer');
-
     }
 
-//    ------------------------------ Views -----------------------------------
+    //    ------------------------------ Views -----------------------------------
 
 
 
@@ -67,7 +64,6 @@ class Customer extends CI_Controller
         );
         $insert = $this->customer_model->save($data);
         echo json_encode(array("status" => TRUE, $insert));
-
     }
 
     public function cus_update($id)
@@ -85,7 +81,6 @@ class Customer extends CI_Controller
 
         $this->customer_model->update(array('idcustomer' => $id), $data);
         echo json_encode(array("status" => TRUE));
-
     }
 
 
@@ -108,9 +103,9 @@ class Customer extends CI_Controller
                     echo '<button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="editModal(' . $row['idcustomer'] . ')">';
                     echo '<i class="mdi mdi-pencil"></i>';
                     echo '</button>';
-//                    echo '<button type="button" class="btn btn-icons btn-rounded btn-danger">';
-//                    echo '<i class="mdi mdi-delete"></i>';
-//                    echo '</button>';
+                    //                    echo '<button type="button" class="btn btn-icons btn-rounded btn-danger">';
+                    //                    echo '<i class="mdi mdi-delete"></i>';
+                    //                    echo '</button>';
                     echo '</td>';
                     echo '</tr>';
                 }
@@ -120,7 +115,11 @@ class Customer extends CI_Controller
             echo '<td colspan="7"> <h4 class="text-danger">No Results Found!</h4></td>';
             echo '</tr>';
         }
-
+    }
+    public function get_customer_by_id($id)
+    {
+        $data = $this->customer_model->get_customer_by_id(array('idcustomer' => $id));
+        echo json_encode($data);
     }
 
     public function get_customer($where)
@@ -128,8 +127,5 @@ class Customer extends CI_Controller
 
         $data = $this->customer_model->get_customer_by_id($where);
         echo json_encode($data);
-
     }
-
-
 }
