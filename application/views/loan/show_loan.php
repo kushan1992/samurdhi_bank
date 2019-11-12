@@ -40,7 +40,8 @@
                                         </div>
                                         <div class="col-md-2 d-flex">
                                             <p><span class="font-weight-bold">Loan Status</span>
-                                                <br> <?php echo $row['status'] ?> </p>
+                                                <br> <?php echo $row['status'];
+                                                                    $loan_status = $row['status']; ?> </p>
                                         </div>
                                         <div class="col-md-2 d-flex">
                                             <p><span class="font-weight-bold">Loan Create Date</span>
@@ -207,6 +208,7 @@
 </div>
 
 
+
 <!-- The Modal -->
 <div class="modal" id="paymentModal">
     <div class="modal-dialog">
@@ -259,21 +261,49 @@
                 </div>
 
 
-
-                <form id="paymentForm" action="#" method="post">
-                    <div class="form-group">
-                        <label>Payment</label>
-                        <input type="text" class="form-control" name="payment" placeholder="Payment">
-                        <p id="error_payment" class="text-warning"></p>
+                <?php
+                if ($loan_status === "Bad_Debt") {
+                    ?>
+                    <!-- <blockquote class="blockquote blockquote-primary"> -->
+                    <div class="display-4 text-danger text-center font-weight-bold text-uppercase">
+                        Bad debt
                     </div>
+                    <!-- </blockquote> -->
+                    <?php
+                    } else {
 
-                    <div class="text-right mt-5">
-                        <button type="button" class="btn left btn-success mr-2" onclick="save()" id="paymentFormSubmitBtn">
-                            Submit
-                        </button>
-                        <button type="button" class="btn left btn-danger" data-dismiss="modal">Cancel</button>
-                    </div>
-                </form>
+                        if ($loan_status === "Belated") {
+                            ?>
+
+                        <div class="display-4 text-warning text-center font-weight-bold text-uppercase">
+                            Belated
+                        </div>
+
+                    <?php
+                        }
+                        ?>
+
+
+                    <form id="paymentForm" action="#" method="post">
+                        <div class="form-group">
+                            <label>Payment</label>
+                            <input type="text" class="form-control" name="payment" placeholder="Payment">
+                            <p id="error_payment" class="text-warning"></p>
+                        </div>
+
+
+                        <div class="text-right mt-5">
+                            <button type="button" class="btn left btn-success mr-2" onclick="save()" id="paymentFormSubmitBtn">
+                                Submit
+                            </button>
+                            <button type="button" class="btn left btn-danger" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </form>
+                <?php
+                }
+                ?>
+
+
             </div>
 
         </div>
@@ -361,14 +391,11 @@
         let payment_schedule2 = [];
 
         let get_loan_payment_log = <?php echo json_encode($get_loan_payment_log); ?>;
-        let last_payment_log = <?php echo json_encode($get_loan_payment_log[0]); ?>;
         let last_date;
 
-        if (last_payment_log.length === 1) {
-            // console.log('------------------------ last_payment_log[0].date - ', last_payment_log[0].date);
-            last_date = last_payment_log[0].date;
+        if (get_loan_payment_log.length === 1) {
+            last_date = get_loan_payment_log[0].date;
         } else {
-            // console.log('------------------------ loan_detail[0].date - ', loan_detail[0].date);
             last_date = loan_detail[0].date;
         }
 
@@ -496,11 +523,14 @@
             console.log('---------------------------------------------------');
 
 
-
-            $('#paymentForm')[0].reset();
-            // $('.modal-title').text('Create Loan');
+            if ($('#paymentForm')[0]) {
+                $('#paymentForm')[0].reset();
+                // $('.modal-title').text('Create Loan');
+            }
             $('#paymentModal').modal('show');
             hideErrorMsgs();
+
+
 
         } else {
             alert("Date Error 01");

@@ -33,6 +33,7 @@ class Loan extends CI_Controller
         $data['get_loans'] = $this->loan_model->get_loans();
         $data['get_loanTypes'] = $this->loan_model->get_loan_types();
         $data['rowCount'] = array(10, 20, 50, 100);
+        $this->checkLoans();
 
         $this->load->view('templates/header');
         $this->load->view('loan/loans', $data);
@@ -380,5 +381,46 @@ class Loan extends CI_Controller
 
         // echo json_encode(array("status" => TRUE, $data1, $test));
         echo json_encode(array("status" => TRUE));
+    }
+
+
+    public function checkLoans()
+    {
+        $loans = $this->loan_model->get_loans();
+        $belated = [];
+        $bad_debt = [];
+        if (!empty($loans)) {
+            foreach ($loans as $loan) {
+                $loan_id = $loan['idloan'];
+                $loan_installment = $loan['installment'];
+
+                $loan_payment_schedule = $this->loan_model->get_loan_schedule(array('idloan' => $loan_id));
+                $amount_of_payable_installments = 0;
+
+                if (!empty($loan_payment_schedule)) {
+                    foreach ($loan_payment_schedule as $row) {
+                        if ($row['date'] < date("Y-m-d H:i:s") && $row['status'] === '0' && !empty($row['installment_balance'])) {
+                            $amount_of_payable_installments += $row['installment_balance'];
+                        }
+                    }
+                }
+
+                if ($amount_of_payable_installments > (9 * $loan_installment)) {
+                    array_push($bad_debt, $loan_id);
+                    array_push($bad_debt, $amount_of_payable_installments);
+                    array_push($bad_debt, 9 * $loan_installment);
+                    $this->loan_model->updateLoanStatus(array('idloan' => $loan_id), array('status' => "Bad_Debt"));
+                } else if ($amount_of_payable_installments > (3 * $loan_installment)) {
+                    array_push($belated, $loan_id);
+                    array_push($belated, $amount_of_payable_installments);
+                    array_push($belated, 3 * $loan_installment);
+                    $this->loan_model->updateLoanStatus(array('idloan' => $loan_id), array('status' => "Belated"));
+                } else {
+                    $this->loan_model->updateLoanStatus(array('idloan' => $loan_id), array('status' => "Active"));
+                }
+            }
+        }
+        // return [$belated, $bad_debt];
+        // return $bad_debt;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Created by PhpStorm.
  * User: buddhi_hasanka
@@ -6,7 +7,7 @@
  * Time: 5:07 PM
  */
 
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 class loan_model extends CI_Model
 {
@@ -34,7 +35,7 @@ class loan_model extends CI_Model
 
     public function get_loans()
     {
-        $this->db->select('loan.idloan, loan.idcustomer, loan.idloan_type, loan.interest, loan.duration, loan.amount, loan.status, loan.date, loan.iduser, loan.is_delete,loan_type.loan_name');
+        $this->db->select('loan.idloan, loan.idcustomer, loan.idloan_type, loan.interest, loan.duration, loan.amount, loan.installment,loan.status, loan.date, loan.iduser, loan.is_delete,loan_type.loan_name');
         $this->db->from('loan');
         $this->db->join('loan_type', 'loan_type.idloan_type = loan.idloan_type');
         $result = $this->db->get();
@@ -45,15 +46,13 @@ class loan_model extends CI_Model
         } else {
             return false;
         }
-
     }
 
     public function round_up($value, $places)
     {
         $mult = pow(10, abs($places));
         return $places < 0 ?
-            ceil($value / $mult) * $mult :
-            ceil($value * $mult) / $mult;
+            ceil($value / $mult) * $mult : ceil($value * $mult) / $mult;
     }
 
     public function save($data, $data_payment_schedule)
@@ -66,7 +65,7 @@ class loan_model extends CI_Model
             $this->db->insert($this->table3, $ps);
         }
 
-//        $this->db->insert_batch($this->table3, $data_payment_schedule);
+        //        $this->db->insert_batch($this->table3, $data_payment_schedule);
         return $id;
     }
 
@@ -102,7 +101,6 @@ class loan_model extends CI_Model
         } else {
             return false;
         }
-
     }
 
 
@@ -162,7 +160,7 @@ class loan_model extends CI_Model
     public function get_last_loan_payment_log($where)
     {
         $this->db->where($where);
-        $this->db->order_by('date',"desc");
+        $this->db->order_by('date', "desc");
         $this->db->limit(1);
         $query = $this->db->get($this->table4);
         return $query->result_array();
@@ -171,13 +169,13 @@ class loan_model extends CI_Model
     public function get_loan_payment_log($where)
     {
         $this->db->where($where);
-        $this->db->order_by('date',"desc");
+        $this->db->order_by('date', "desc");
         // $this->db->limit(1);
         $query = $this->db->get($this->table4);
         return $query->result_array();
     }
 
-    
+
     public function save_payment_log($data)
     {
         $this->db->insert($this->table4, $data);
@@ -189,5 +187,10 @@ class loan_model extends CI_Model
         $this->db->update($this->table3, $data, $where);
         return $this->db->affected_rows();
     }
-
+    
+    public function updateLoanStatus($where, $data)
+    {
+        $this->db->update($this->table1, $data, $where);
+        return $this->db->affected_rows();
+    }
 }
