@@ -155,7 +155,6 @@
                                             <th>Premium</th>
                                             <th>Interest</th>
                                             <th>Penalty</th>
-                                            <th>Edit/Delete</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -183,11 +182,6 @@
                                                                     } else {
                                                                         echo 'Rs.0.00';
                                                                     } ?></td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="editModal('<?php echo $row['idloan'] ?>')">
-                                                            <i class="mdi mdi-pencil"></i>
-                                                        </button>
-                                                    </td>
                                                 </tr>
                                         <?php
                                                 }

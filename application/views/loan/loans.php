@@ -56,8 +56,6 @@
                                     <th>Customer</th>
                                     <th>Loan Type</th>
                                     <th>Amount</th>
-                                    <th>Interest</th>
-                                    <th>Duration</th>
                                     <th>Create Date</th>
                                     <th>Status</th>
                                     <th>Edit/Delete</th>
@@ -82,12 +80,6 @@
                                             <td><?php if (!empty($row['amount'])) {
                                                             echo $row['amount'];
                                                         } ?></td>
-                                            <td><?php if (!empty($row['interest'])) {
-                                                            echo $row['interest'];
-                                                        } ?></td>
-                                            <td><?php if (!empty($row['duration'])) {
-                                                            echo $row['duration'];
-                                                        } ?></td>
                                             <td><?php if (!empty($row['date'])) {
                                                             echo $row['date'];
                                                         } ?></td>
@@ -98,6 +90,9 @@
                                                 <button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="editModal('<?php echo $row['idloan'] ?>')">
                                                     <i class="mdi mdi-pencil"></i>
                                                 </button>
+                                                <a class="btn btn-icons btn-rounded btn-secondary" onclick="window.location.href='<?php echo base_url(); ?>customer/show_customer/<?php echo $row['idcustomer'];?>';">
+                                                  <i class="mdi mdi-note-text"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                 <?php

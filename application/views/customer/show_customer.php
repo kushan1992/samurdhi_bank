@@ -6,7 +6,7 @@ if (!empty($get_customer)) {
 <div class="main-panel">
   <div class="content-wrapper">
     <div class="row">
-      <div class="col-md-6 grid-margin stretch-card">
+      <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
           <div class="card-body">
             <h3>
@@ -26,13 +26,6 @@ if (!empty($get_customer)) {
               </p>
             </address>
 
-          </div>
-        </div>
-      </div>
-      <div class="col-md-6 grid-margin stretch-card">
-        <div class="card">
-          <div class="card-body">
-             <h3>Loans details</h3>
           </div>
         </div>
       </div>
@@ -80,7 +73,7 @@ if (!empty($get_customer)) {
                                             } ?></td>
                                         <td>
                                           <a class="btn btn-icons btn-rounded btn-secondary" onclick="window.location.href='<?php echo base_url(); ?>loan/show_loan/<?php echo $row['idloan'];?>';">
-                                            <i class="mdi mdi-account-check"></i>
+                                            <i class="mdi mdi-note-text"></i>
                                           </a>
                                         </td>
 

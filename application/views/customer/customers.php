@@ -115,7 +115,7 @@
                                                     <i class="mdi mdi-pencil"></i>
                                                 </button>
                                                 <a class="btn btn-icons btn-rounded btn-secondary" onclick="window.location.href='<?php echo base_url(); ?>customer/show_customer/<?php echo $row['idcustomer'];?>';">
-                                                  <i class="mdi mdi-account-check"></i>
+                                                  <i class="mdi mdi-note-text"></i>
                                                 </a>
                                                 <!--                                            <button type="button" class="btn btn-icons btn-rounded btn-danger">-->
                                                 <!--                                                <i class="mdi mdi-delete"></i>-->
