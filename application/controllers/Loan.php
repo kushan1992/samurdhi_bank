@@ -16,7 +16,6 @@ class Loan extends CI_Controller
     {
         parent::__construct();
 
-
         $this->load->helper('url_helper');
         $this->load->model('loan_model');
         $this->load->model('customer_model');
@@ -87,7 +86,9 @@ class Loan extends CI_Controller
                 'status' => "Active",
                 // 'status' => $this->input->post('loan_status'),
                 'date' => $currentDate->format('Y-m-d H:i:s'),
-                'is_delete' => false,
+                // 'is_old_loan' => false,
+                // 'is_fixed' => false,
+                // 'is_delete' => false,
             );
 
 
@@ -143,10 +144,143 @@ class Loan extends CI_Controller
             }
 
 
-            $insert = $this->loan_model->save($data, $data_payment_schedule);
+            $insert = $this->loan_model->save($data, $data_payment_schedule, null);
 
 
             echo json_encode(array("status" => TRUE, $insert));
+        } else {
+            echo json_encode(array("status" => FALSE, "error" => "Invalid Member ID"));
+        }
+    }
+
+
+    public function old_loan_create()
+    {
+
+
+        $customer = $this->customer_model->get_customer(array('memnumber' => $this->input->post('old_loan_cid')));
+
+        if (!empty($customer) && !empty($customer[0]) && !empty($customer[0]['idcustomer'])) {
+
+
+            $createDate = new DateTime($this->input->post('old_loan_create_date') . " 10:00:00");
+            $amount = $this->input->post('old_loan_amount');
+            $duration = $this->input->post('old_loan_duration');
+            $is_fixed = true;
+            // $last_payment_date = $this->input->post('old_loan_last_payment_date');
+            $last_payment_date = new DateTime($this->input->post('old_loan_last_payment_date'));
+
+            $installment = $this->loan_model->round_up(($amount / $duration), 2);
+
+            $temp_data_payment_schedule = array();
+
+            $date = $createDate->format("d");
+            $month = $createDate->format("m");
+            $year = $createDate->format("Y");
+            $time = $createDate->format("H:i:s");
+
+            foreach (range(1, $duration) as $i) {
+
+                $d = new DateTime($year . '-' . $month . '-' . $date);
+                $installment_date = '';
+
+                if ($d->format('d') !== $date) {
+
+                    $td = new DateTime($year . '-' . $d->format('m') . '-' . $date);
+                    $installment_date = $td->format('Y-m-d');
+                    //                echo '------------------------------------------------ ' . $td->format('Y - m - d'), "\n<br>";
+                    $month = $td->format('m');
+                    $year = $td->format('Y');
+                } else {
+
+                    $d->modify('next month');
+
+                    if ($d->format('d') !== $date) {
+
+                        $td = new DateTime($year . '-' . $month . '-01');
+                        $td->modify('last day of next month');
+                        $installment_date = $td->format('Y-m-d');
+                        //                    echo '------------------------------------------------ ' . $td->format('Y - m - d'), "\n<br>";
+                        $month = $td->format('m');
+                        $year = $td->format('Y');
+                    } else {
+
+                        $installment_date = $d->format('Y-m-d');
+                        //                    echo '------------------------------------------------ ' . $d->format('Y - m - d'), "\n<br>";
+                        $month = $d->format('m');
+                        $year = $d->format('Y');
+                    }
+                }
+
+                array_push($temp_data_payment_schedule, array(
+                    'date' => date('Y-m-d H:i:s', strtotime($installment_date)),
+                    'installment_balance' => $installment,
+                    'status' => false,
+                    'fine_status' => false,
+                    'is_delete' => false,
+                ));
+            }
+
+            $data_payment_schedule = array();
+            $loan_balance = $this->input->post('old_loan_balance');
+
+            foreach (array_reverse($temp_data_payment_schedule) as $row) {
+                if ($loan_balance > 0) {
+                    if ($loan_balance >= $row['installment_balance']) {
+                        $loan_balance -= $row['installment_balance'];
+                    } else {
+
+                        $row['installment_balance'] = $loan_balance;
+                        $loan_balance = 0;
+                    }
+
+                    $schedule_date = new DateTime($row['date']);
+                    if ($schedule_date < $last_payment_date) {
+                        $is_fixed = false;
+                    }
+                } else {
+                    $row['installment_balance'] = 0;
+                    $row['status'] = true;
+                }
+                array_push($data_payment_schedule, $row);
+            };
+
+            $data1 = array(
+                'idcustomer' => $customer[0]['idcustomer'],
+                'idloan_type' => $this->input->post('old_loan_type'),
+                'amount' => $this->input->post('old_loan_amount'),
+                'installment' => $installment,
+                'interest' => $this->input->post('old_loan_interest'),
+                'duration' => $this->input->post('old_loan_duration'),
+                'iduser' => '1',
+                'status' => "Active",
+                // 'status' => $this->input->post('loan_status'),
+                'date' => $createDate->format('Y-m-d H:i:s'),
+                'is_old_loan' => true,
+                'is_fixed' => $is_fixed,
+                // 'is_delete' => false,
+            );
+
+
+            $data2 = array(
+                'idloan' => null,
+                'date' => $last_payment_date->format('Y-m-d H:i:s'),
+                'premium ' => 0,
+                'interest' => 0,
+                'penalty' => 0,
+                'iduser' => '1',
+                'is_visible' => false,
+                'is_delete' => false
+            );
+
+            // $this->loan_model->save_payment_log($data1);
+
+            // echo json_encode(array(
+            //     "status" => TRUE, array_reverse($data_payment_schedule), $data1, $is_fixed
+            // ));
+
+            $insert = $this->loan_model->save($data1, array_reverse($data_payment_schedule), $data2);
+            echo json_encode(array("status" => TRUE, $insert, $is_fixed));
         } else {
             echo json_encode(array("status" => FALSE, "error" => "Invalid Member ID"));
         }
@@ -311,9 +445,10 @@ class Loan extends CI_Controller
         $installment = $_POST['installment'];
         $premium = $_POST['payment'];
         $interest = $_POST['interest'];
-        $panalty = $_POST['fine'];
-        $balance_of_payment = $premium - ($interest + $panalty);
-        $late_installments = $_POST['late_installments'];
+        $penalty = $_POST['fine'];
+        $balance_of_payment = $premium - ($interest + $penalty);
+        // $late_installments = $_POST['late_installments'];
+        $late_installments = isset($_POST['late_installments']) ? $_POST['late_installments'] : null;
         // $late_installments = serialize($_POST['late_installments']);
         // $late_installments = [];
 
@@ -322,14 +457,12 @@ class Loan extends CI_Controller
             'date' => date("Y-m-d H:i:s"),
             'premium ' => $premium,
             'interest' => $interest,
-            'panalty' => $panalty,
+            'penalty' => $penalty,
             'iduser' => '1',
             'is_delete' => false
         );
 
         $this->loan_model->save_payment_log($data1);
-
-        $test = [];
 
         $data2 = $this->loan_model->get_loan_schedule(array('idloan' => $idloan));
         if (!empty($data2)) {
@@ -359,7 +492,7 @@ class Loan extends CI_Controller
                     }
                 }
 
-                if (in_array($idpayment_schedule, $late_installments)) {
+                if ($late_installments && in_array($idpayment_schedule, $late_installments)) {
                     $fine_status = true;
                 }
 
@@ -370,16 +503,30 @@ class Loan extends CI_Controller
                         'status' => $status,
                         'fine_status' => $fine_status
                     );
-                    array_push($test, "------------", $idpayment_schedule, $data3);
 
                     $this->loan_model->update_loan_schedule(array('idpayment_schedule' => $idpayment_schedule), $data3);
                 }
             }
         }
 
+        echo json_encode(array("status" => TRUE, $late_installments));
+    }
 
 
-        // echo json_encode(array("status" => TRUE, $data1, $test));
+    public function payment_log_update()
+    {
+        $all_late_installments = $_POST['all_late_installments'];
+
+        if (!empty($all_late_installments)) {
+            foreach ($all_late_installments as $row) {
+                $data = array(
+                    'fine_status' => true
+                );
+
+                $this->loan_model->update_loan_schedule(array('idpayment_schedule' => $row['idpayment_schedule']), $data);
+            }
+        }
+
         echo json_encode(array("status" => TRUE));
     }
 
@@ -409,7 +556,7 @@ class Loan extends CI_Controller
                     array_push($bad_debt, $loan_id);
                     array_push($bad_debt, $amount_of_payable_installments);
                     array_push($bad_debt, 9 * $loan_installment);
-                    $this->loan_model->updateLoanStatus(array('idloan' => $loan_id), array('status' => "Bad_Debt"));
+                    $this->loan_model->updateLoanStatus(array('idloan' => $loan_id), array('status' => "Bad-Debt"));
                 } else if ($amount_of_payable_installments > (3 * $loan_installment)) {
                     array_push($belated, $loan_id);
                     array_push($belated, $amount_of_payable_installments);

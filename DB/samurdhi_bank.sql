@@ -133,7 +133,7 @@ CREATE TABLE IF NOT EXISTS `samurdhi_bank`.`payment_log` (
   `date_time` DATETIME NULL,
   `premium` FLOAT NULL,
   `interest` FLOAT NULL,
-  `panalty` FLOAT NULL,
+  `penalty` FLOAT NULL,
   `user_iduser` INT NOT NULL,
   `status` TINYINT NULL,
   PRIMARY KEY (`idpayment_log`),

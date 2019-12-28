@@ -85,7 +85,7 @@ CREATE TABLE `payment_log` (
   `date` date DEFAULT NULL,
   `premium` float DEFAULT NULL,
   `interest` float DEFAULT NULL,
-  `panalty` float DEFAULT NULL,
+  `penalty` float DEFAULT NULL,
   `user_iduser` int(11) NOT NULL,
   `status` varchar(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

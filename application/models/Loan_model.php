@@ -55,14 +55,18 @@ class loan_model extends CI_Model
             ceil($value / $mult) * $mult : ceil($value * $mult) / $mult;
     }
 
-    public function save($data, $data_payment_schedule)
+    public function save($data_loan, $data_payment_schedule, $data_last_payment)
     {
-        $this->db->insert($this->table1, $data);
+        $this->db->insert($this->table1, $data_loan);
         $id = $this->db->insert_id();
 
         foreach ($data_payment_schedule as $ps) {
             $ps['idloan'] = $id;
             $this->db->insert($this->table3, $ps);
+        }
+        if($data_last_payment){
+            $data_last_payment['idloan'] = $id;
+            $this->save_payment_log($data_last_payment);
         }
 
         //        $this->db->insert_batch($this->table3, $data_payment_schedule);
@@ -136,7 +140,7 @@ class loan_model extends CI_Model
     {
         $this->db->select(
             'loan.idloan, loan.idcustomer, loan.idloan_type, loan.interest, loan.duration, loan.amount, loan.installment, 
-            loan.status, loan.date, loan.iduser, loan.is_delete, loan_type.idloan_type, loan_type.loan_name'
+            loan.status, loan.date, loan.iduser, loan.is_old_loan, loan.is_fixed, loan.is_delete, loan_type.idloan_type, loan_type.loan_name'
         );
         $this->db->from('loan');
         $this->db->where($where);
@@ -187,7 +191,7 @@ class loan_model extends CI_Model
         $this->db->update($this->table3, $data, $where);
         return $this->db->affected_rows();
     }
-    
+
     public function updateLoanStatus($where, $data)
     {
         $this->db->update($this->table1, $data, $where);

@@ -6,6 +6,9 @@
  * Date: 09-Feb-19
  * Time: 4:57 PM
  */
+
+include("old_loan_modal.php");
+
 ?>
 
 
@@ -15,13 +18,17 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-
                         <div class="col-md-1">
                             <button type="button" class="btn btn-icons btn-rounded btn-success" onclick="createModal()">
                                 <i class="mdi mdi-plus"></i>
                             </button>
                         </div>
-                        <div class="col-md-8">
+                        <div class="col-md-1">
+                            <button type="button" class="btn btn-icons btn-rounded btn-danger" onclick="createOldLoanModal()">
+                                <i class="mdi mdi-plus"></i>
+                            </button>
+                        </div>
+                        <div class="col-md-7">
                             <input type="text" name="search" id="searchLoan" class="form-control form-control-lg" placeholder="Type here what you want to search" aria-label="Search" />
                         </div>
 
@@ -90,8 +97,8 @@
                                                 <button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="editModal('<?php echo $row['idloan'] ?>')">
                                                     <i class="mdi mdi-pencil"></i>
                                                 </button>
-                                                <a class="btn btn-icons btn-rounded btn-secondary" onclick="window.location.href='<?php echo base_url(); ?>customer/show_customer/<?php echo $row['idcustomer'];?>';">
-                                                  <i class="mdi mdi-note-text"></i>
+                                                <a class="btn btn-icons btn-rounded btn-secondary" onclick="window.location.href='<?php echo base_url(); ?>customer/show_customer/<?php echo $row['idcustomer']; ?>';">
+                                                    <i class="mdi mdi-note-text"></i>
                                                 </a>
                                             </td>
                                         </tr>
@@ -313,7 +320,7 @@
                             });
                         }
                     } else {
-                        swal("Oops", "Failed to Save Loan, "+data.error+"!", "error")
+                        swal("Oops", "Failed to Save Loan, " + data.error + "!", "error")
                     }
                 },
                 error: function(jqXHR, textStatus, errorThrown) {

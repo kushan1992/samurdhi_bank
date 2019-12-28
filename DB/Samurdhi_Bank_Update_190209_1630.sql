@@ -86,7 +86,7 @@ CREATE TABLE `payment_log` (
   `date` date DEFAULT NULL,
   `premium` float DEFAULT NULL,
   `interest` float DEFAULT NULL,
-  `panalty` float DEFAULT NULL,
+  `penalty` float DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   `iduser` int(11) NOT NULL,
   `is_delete` tinyint(1) NOT NULL DEFAULT '0'
