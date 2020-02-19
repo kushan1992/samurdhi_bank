@@ -34,7 +34,6 @@ CREATE TABLE `customer` (
   `name` varchar(100) DEFAULT NULL,
   `nic` varchar(45) DEFAULT NULL,
   `address` text NOT NULL,
-  `occupation` varchar(200) NOT NULL,
   `date` date DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   `is_delete` tinyint(1) NOT NULL DEFAULT '0'
@@ -44,12 +43,12 @@ CREATE TABLE `customer` (
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`idcustomer`, `memnumber`, `name`, `nic`, `address`, `occupation`, `date`, `status`, `is_delete`) VALUES
-(25197, 2514655, 'Buddi Hasanka hh', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-02', 'Active', 1),
-(25198, 12211, 'Buddi Hasanka', '15465446466546v', 'Samagi Mawatha, Elpitiya', 'sdfsdf', '2019-03-11', 'Active', 1),
-(25223, 2514656, 'Kushan Pabasara', '921234567V', 'Pituwala', 'Driver', '2019-07-07', 'Active', 1),
-(25226, 121212, 'Buddi Hasanka', '923054738V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-07-12', 'Active', 1),
-(25227, 124578, 'Buddi Hasanka', '15465446464546v', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-07-12', 'Active', 1);
+INSERT INTO `customer` (`idcustomer`, `memnumber`, `name`, `nic`, `address`, `date`, `status`, `is_delete`) VALUES
+(25197, 2514655, 'Buddi Hasanka hh', '923054758V', 'Samagi Mawatha, Elpitiya', '2019-03-02', 'Active', 1),
+(25198, 12211, 'Buddi Hasanka', '15465446466546v', 'Samagi Mawatha, Elpitiya', '2019-03-11', 'Active', 1),
+(25223, 2514656, 'Kushan Pabasara', '921234567V', 'Pituwala', '2019-07-07', 'Active', 1),
+(25226, 121212, 'Buddi Hasanka', '923054738V', 'Samagi Mawatha, Elpitiya', '2019-07-12', 'Active', 1),
+(25227, 124578, 'Buddi Hasanka', '15465446464546v', 'Samagi Mawatha, Elpitiya', '2019-07-12', 'Active', 1);
 
 -- --------------------------------------------------------
 

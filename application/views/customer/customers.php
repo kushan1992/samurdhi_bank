@@ -79,7 +79,6 @@
                                     <th>Member Number</th>
                                     <th>Name</th>
                                     <th>NIC</th>
-                                    <th>Occupation</th>
                                     <th>Create date</th>
                                     <th>State</th>
                                     <th>Edit/Delete</th>
@@ -100,9 +99,6 @@
                                                 } ?></td>
                                             <td><?php if (!empty($row['nic'])) {
                                                     echo $row['nic'];
-                                                } ?></td>
-                                            <td><?php if (!empty($row['occupation'])) {
-                                                    echo $row['occupation'];
                                                 } ?></td>
                                             <td><?php if (!empty($row['date'])) {
                                                     echo $row['date'];
@@ -167,17 +163,12 @@
                     <div class="form-group">
                         <label>NIC</label>
                         <input type="text" class="form-control" name="cus_nic" placeholder="Customer NIC">
-                        <p id="error_cus_nic" class="text-warning">Customer NIC field is required!</p>
+                        <!-- <p id="error_cus_nic" class="text-warning">Customer NIC field is required!</p> -->
                     </div>
                     <div class="form-group">
                         <label>Address</label>
                         <input type="text" class="form-control" name="cus_address" placeholder="Customer Address">
                         <p id="error_cus_address" class="text-warning">Customer Address field is required!</p>
-                    </div>
-                    <div class="form-group">
-                        <label>Occupation</label>
-                        <input type="text" class="form-control" name="cus_occupation" placeholder="Customer Occupation">
-                        <p id="error_cus_occupation" class="text-warning">Customer Occupation field is required!</p>
                     </div>
                     <div class="form-group">
                         <label>Status</label>
@@ -205,7 +196,7 @@
     });
 
 
-    var inputArray = ['cus_number', 'cus_name', 'cus_nic', 'cus_address', 'cus_occupation'];
+    var inputArray = ['cus_number', 'cus_name', 'cus_address'];
     var selected_cus = null;
     var searchType = 'memnumber';
 
@@ -286,7 +277,6 @@
                 $('[name="cus_name"]').val(data.name);
                 $('[name="cus_nic"]').val(data.nic);
                 $('[name="cus_address"]').val(data.address);
-                $('[name="cus_occupation"]').val(data.occupation);
                 $('[name="cus_status"]').val(data.status);
 
             },

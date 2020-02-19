@@ -318,7 +318,6 @@ class Loan extends CI_Controller
                     echo '<td>' . $row['memnumber'] . '</td>';
                     echo '<td>' . $row['name'] . '</td>';
                     echo '<td>' . $row['nic'] . '</td>';
-                    echo '<td>' . $row['occupation'] . '</td>';
                     echo '<td>' . $row['date'] . '</td>';
                     echo '<td>' . $row['status'] . '</td>';
                     echo '<td>';
@@ -341,8 +340,19 @@ class Loan extends CI_Controller
 
     public function get_loan($id)
     {
-
         $data = $this->loan_model->get_loan_by_id(array('idloan' => $id));
+        echo json_encode($data);
+    }
+
+    public function get_loan_payment_log($id)
+    {
+        $data = $this->loan_model->get_loan_payment_log(array('idloan' => $id));
+        echo json_encode($data);
+    }
+
+    public function delete_loan($id)
+    {
+        $data = $this->loan_model->get_loan_payment_log(array('idloan' => $id));
         echo json_encode($data);
     }
 

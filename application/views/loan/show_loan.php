@@ -323,8 +323,6 @@ if (!empty($get_loan_detail)) {
             </div>
         </div>
     </div>
-
-
 <?php
 }
 ?>
@@ -355,8 +353,7 @@ if (!empty($get_loan_detail)) {
 
     let number_of_days_given_for_relief_period = 7;
     let rates_of_fine = 5;
-    let rates_of_loan = 12 / 100;
-
+    let rates_of_loan = loan_detail[0].interest;
 
 
     $(document).ready(function() {
@@ -367,7 +364,6 @@ if (!empty($get_loan_detail)) {
         if (searchParams.has('perPage')) {
             $('#rowCountDDBTN').html(searchParams.get('perPage'));
         }
-
         if (is_old_loan === '1' && is_fixed === '0') {
             fixPenalty();
         }
@@ -507,7 +503,7 @@ if (!empty($get_loan_detail)) {
 
             }
 
-            interest = round(balance_of_loan_amount * rates_of_loan * (days / 365));
+            interest = round(balance_of_loan_amount * (rates_of_loan / 100) * (days / 365));
 
             if (amount_of_late_installments > 0) {
                 fine = round(amount_of_late_installments * (rates_of_fine / 100));

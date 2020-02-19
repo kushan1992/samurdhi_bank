@@ -34,7 +34,6 @@ CREATE TABLE `customer` (
   `name` varchar(100) DEFAULT NULL,
   `nic` varchar(45) DEFAULT NULL,
   `address` text NOT NULL,
-  `occupation` varchar(200) NOT NULL,
   `date` date DEFAULT NULL,
   `status` varchar(45) DEFAULT NULL,
   `is_delete` tinyint(1) NOT NULL DEFAULT '0'
@@ -44,20 +43,20 @@ CREATE TABLE `customer` (
 -- Dumping data for table `customer`
 --
 
-INSERT INTO `customer` (`idcustomer`, `memnumber`, `name`, `nic`, `address`, `occupation`, `date`, `status`, `is_delete`) VALUES
-(25147, 25146, 'Buddi Hasanka', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-02', 'Active', 1),
-(25188, 12121, 'Buddi Hasanka', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-01', 'Active', 1),
-(25189, 0, 'sdfsdf', 'sdfsd', 'sdfsdf', 'sdfsdf', '2019-03-01', 'Active', 1),
-(25190, 0, 'sdfsdf', 'sdfsd', 'sdfsdf', 'sdfsdf', '2019-03-01', 'Active', 1),
-(25191, 1122, 'cvxcvxcv nnn', 'xcvxcvxc', 'vxcvxcv', 'xcvxcv', '2019-03-01', 'Active', 1),
-(25192, 25146, 'Buddi Hasanka qq', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-01', 'Active', 1),
-(25193, 1212133, 'Buddi Hasanka ggg', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-02', 'Active', 1),
-(25194, 1212144, 'Buddi Hasanka fff', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-02', 'Active', 1),
-(25195, 1212155, 'Buddi Hasanka eee', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-02', 'Active', 1),
-(25196, 45345555, 'sdfsdf', 'sdfsd', 'sdfsdf', 'sdfsdf', '2019-03-02', 'Active', 1),
-(25197, 2514655, 'Buddi Hasanka hh', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-03-02', 'Active', 1),
-(25198, 12211, 'Buddi Hasanka', '15465446466546v', 'Samagi Mawatha, Elpitiya', 'sdfsdf', '2019-03-11', 'Active', 1),
-(25199, 234567, 'Buddi Hasanka', '923054758V', 'Samagi Mawatha, Elpitiya', 'Driver', '2019-04-07', 'Active', 1);
+INSERT INTO `customer` (`idcustomer`, `memnumber`, `name`, `nic`, `address`, `date`, `status`, `is_delete`) VALUES
+(25147, 25146, 'Buddi Hasanka', '923054758V', 'Samagi Mawatha, Elpitiya', '2019-03-02', 'Active', 1),
+(25188, 12121, 'Buddi Hasanka', '923054758V', 'Samagi Mawatha, Elpitiya', '2019-03-01', 'Active', 1),
+(25189, 0, 'sdfsdf', 'sdfsd', 'sdfsdf', '2019-03-01', 'Active', 1),
+(25190, 0, 'sdfsdf', 'sdfsd', 'sdfsdf', '2019-03-01', 'Active', 1),
+(25191, 1122, 'cvxcvxcv nnn', 'xcvxcvxc', 'vxcvxcv', '2019-03-01', 'Active', 1),
+(25192, 25146, 'Buddi Hasanka qq', '923054758V', 'Samagi Mawatha, Elpitiya', '2019-03-01', 'Active', 1),
+(25193, 1212133, 'Buddi Hasanka ggg', '923054758V', 'Samagi Mawatha, Elpitiya', '2019-03-02', 'Active', 1),
+(25194, 1212144, 'Buddi Hasanka fff', '923054758V', 'Samagi Mawatha, Elpitiya', '2019-03-02', 'Active', 1),
+(25195, 1212155, 'Buddi Hasanka eee', '923054758V', 'Samagi Mawatha, Elpitiya', '2019-03-02', 'Active', 1),
+(25196, 45345555, 'sdfsdf', 'sdfsd', 'sdfsdf', '2019-03-02', 'Active', 1),
+(25197, 2514655, 'Buddi Hasanka hh', '923054758V', 'Samagi Mawatha, Elpitiya', '2019-03-02', 'Active', 1),
+(25198, 12211, 'Buddi Hasanka', '15465446466546v', 'Samagi Mawatha, Elpitiya', '2019-03-11', 'Active', 1),
+(25199, 234567, 'Buddi Hasanka', '923054758V', 'Samagi Mawatha, Elpitiya', '2019-04-07', 'Active', 1);
 
 -- --------------------------------------------------------
 

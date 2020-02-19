@@ -18,7 +18,6 @@ if (!empty($get_customer)) {
             <p class="card-description">
               <b>Member Number:</b> <?php if (!empty($row['memnumber'])) { echo $row['memnumber'];} ?><br/>
               <b>NIC Number:</b> <?php if (!empty($row['nic'])) { echo $row['nic'];} ?><br/>
-              <b>Occupation:</b> <?php if (!empty($row['occupation'])) { echo $row['occupation'];} ?><br/>
             </p>
             <address>
               <p>

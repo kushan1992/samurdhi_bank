@@ -57,7 +57,6 @@ class Customer extends CI_Controller
             'name' => $this->input->post('cus_name'),
             'nic' => $this->input->post('cus_nic'),
             'address' => $this->input->post('cus_address'),
-            'occupation' => $this->input->post('cus_occupation'),
             'date' => date("Y-m-d H:i:s"),
             'status' => $this->input->post('cus_status'),
             'is_delete' => false,
@@ -74,7 +73,6 @@ class Customer extends CI_Controller
             'name' => $this->input->post('cus_name'),
             'nic' => $this->input->post('cus_nic'),
             'address' => $this->input->post('cus_address'),
-            'occupation' => $this->input->post('cus_occupation'),
             'status' => $this->input->post('cus_status'),
             'is_delete' => false,
         );
@@ -96,7 +94,6 @@ class Customer extends CI_Controller
                     echo '<td>' . $row['memnumber'] . '</td>';
                     echo '<td>' . $row['name'] . '</td>';
                     echo '<td>' . $row['nic'] . '</td>';
-                    echo '<td>' . $row['occupation'] . '</td>';
                     echo '<td>' . $row['date'] . '</td>';
                     echo '<td>' . $row['status'] . '</td>';
                     echo '<td>';

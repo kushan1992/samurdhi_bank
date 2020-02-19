@@ -22,8 +22,6 @@ class User extends CI_Controller
         $data['get_users'] = $this->user_model->get_users();
         $data['rowCount'] = Array(10, 20, 50, 100);
 
-//        $data['search_types'] = Array(array("key" => "Member No", "value" => "memnumber"), array("key" => "Name", "value" => "name"), array("key" => "NIC", "value" => "nic"), array("key" => "Occupation", "value" => "occupation"), array("key" => "Status", "value" => "status"));
-
         $this->load->view('templates/header');
         $this->load->view('user/users', $data);
         $this->load->view('templates/footer');
@@ -37,7 +35,6 @@ class User extends CI_Controller
             'name' => $this->input->post('cus_name'),
             'nic' => $this->input->post('cus_nic'),
             'address' => $this->input->post('cus_address'),
-            'occupation' => $this->input->post('cus_occupation'),
             'date' => date("Y-m-d H:i:s"),
             'status' => $this->input->post('cus_status'),
             'is_delete' => false,
@@ -62,7 +59,6 @@ class User extends CI_Controller
             'name' => $this->input->post('cus_name'),
             'nic' => $this->input->post('cus_nic'),
             'address' => $this->input->post('cus_address'),
-            'occupation' => $this->input->post('cus_occupation'),
             'status' => $this->input->post('cus_status'),
             'is_delete' => false,
         );

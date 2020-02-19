@@ -35,9 +35,10 @@ class loan_model extends CI_Model
 
     public function get_loans()
     {
-        $this->db->select('loan.idloan, loan.idcustomer, loan.idloan_type, loan.interest, loan.duration, loan.amount, loan.installment,loan.status, loan.date, loan.iduser, loan.is_delete,loan_type.loan_name');
+        $this->db->select('loan.idloan, loan.idcustomer, loan.idloan_type, loan.interest, loan.duration, loan.amount, loan.installment,loan.status, loan.date, loan.iduser, loan.is_delete,loan_type.loan_name, customer.name');
         $this->db->from('loan');
         $this->db->join('loan_type', 'loan_type.idloan_type = loan.idloan_type');
+        $this->db->join('customer', 'customer.idcustomer = loan.idcustomer');
         $result = $this->db->get();
 
         // $result = $this->db->get($this->table1);
@@ -87,6 +88,15 @@ class loan_model extends CI_Model
     }
 
     public function get_loan_by_id($where)
+    {
+        $this->db->from($this->table1);
+        $this->db->where($where);
+        $query = $this->db->get();
+
+        return $query->row();
+    }
+
+    public function delete_loan($where)
     {
         $this->db->from($this->table1);
         $this->db->where($where);

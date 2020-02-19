@@ -73,29 +73,32 @@ include("old_loan_modal.php");
                                 if (!empty($get_loans)) {
                                     foreach ($get_loans as $row) { ?>
                                         <tr id="<?php if (!empty($row['idloan'])) {
-                                                            echo $row['idloan'];
-                                                        } ?>">
+                                                    echo $row['idloan'];
+                                                } ?>">
                                             <td><?php if (!empty($row['idloan'])) {
-                                                            echo $row['idloan'];
-                                                        } ?></td>
-                                            <td><?php if (!empty($row['idcustomer'])) {
-                                                            echo $row['idcustomer'];
-                                                        } ?></td>
+                                                    echo $row['idloan'];
+                                                } ?></td>
+                                            <td><?php if (!empty($row['name'])) {
+                                                    echo $row['name'];
+                                                } ?></td>
                                             <td><?php if (!empty($row['loan_name'])) {
-                                                            echo $row['loan_name'];
-                                                        } ?></td>
+                                                    echo $row['loan_name'];
+                                                } ?></td>
                                             <td><?php if (!empty($row['amount'])) {
-                                                            echo $row['amount'];
-                                                        } ?></td>
+                                                    echo $row['amount'];
+                                                } ?></td>
                                             <td><?php if (!empty($row['date'])) {
-                                                            echo $row['date'];
-                                                        } ?></td>
+                                                    echo $row['date'];
+                                                } ?></td>
                                             <td><?php if (!empty($row['status'])) {
-                                                            echo $row['status'];
-                                                        } ?></td>
+                                                    echo $row['status'];
+                                                } ?></td>
                                             <td>
                                                 <button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="editModal('<?php echo $row['idloan'] ?>')">
                                                     <i class="mdi mdi-pencil"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-icons btn-rounded btn-secondary" onclick="loneDelete('<?php echo $row['idloan'] ?>')">
+                                                    <i class="mdi mdi-delete"></i>
                                                 </button>
                                                 <a class="btn btn-icons btn-rounded btn-secondary" onclick="window.location.href='<?php echo base_url(); ?>customer/show_customer/<?php echo $row['idcustomer']; ?>';">
                                                     <i class="mdi mdi-note-text"></i>
@@ -148,7 +151,7 @@ include("old_loan_modal.php");
                                 foreach ($get_loanTypes as $row) {
                                     if (!empty($row['idloan_type'])) {
                                         echo $row['idloan_type'];
-                                        ?>
+                            ?>
                                         <option value="<?php echo $row['idloan_type'] ?>"><?php echo $row['loan_name'] ?></option>
                                     <?php } ?>
                             <?php
@@ -282,6 +285,37 @@ include("old_loan_modal.php");
                 $('[name="loan_interest"]').val(data.interest);
                 $('[name="loan_duration"]').val(data.duration);
                 // $('[name="loan_status"]').val(data.status);
+
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                alert('Error get data from ajax');
+            }
+        });
+    }
+
+    function loneDelete(id) {
+        selected_loan = id;
+
+        $.ajax({
+            url: "<?php echo site_url('loan/delete_loan') ?>/" + id,
+            type: "GET",
+            dataType: "JSON",
+            success: function(data) {
+                console.log(data);
+                // deleteLog = true;
+                // if (data.length > 0) {
+                //     data.forEach(function(item) {
+                //         if (item.is_visible === 1) {
+                //             deleteLog = false;
+                //         }
+                //     });
+                // }
+
+                // if (deleteLog) {
+
+                // }
+
+
 
             },
             error: function(jqXHR, textStatus, errorThrown) {
